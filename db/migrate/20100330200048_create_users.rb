@@ -8,6 +8,14 @@ class CreateUsers < ActiveRecord::Migration
       t.string :password_salt
       t.timestamps
     end
+
+    # default admin user
+    admin = User.new
+    admin.username = "admin"
+    admin.email = "admin@example.com"
+    admin.password = admin.password_confirmation = "demo"
+    admin.save
+
   end
   
   def self.down
