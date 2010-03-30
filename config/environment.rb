@@ -27,6 +27,7 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem "authlogic", :version => '2.1.3'
   config.gem "formtastic", :version => '0.9.7'
+  config.gem "acts-as-taggable-on", :version => '2.0.0.rc1'
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
