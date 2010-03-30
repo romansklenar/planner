@@ -3,7 +3,7 @@
 # common example you might add to your application layout file.
 # 
 #   <% if logged_in? %>
-#     Welcome <%=h current_user.username %>! Not you?
+#     Welcome <%=h current_user.login %>! Not you?
 #     <%= link_to "Log out", logout_path %>
 #   <% else %>
 #     <%= link_to "Sign up", signup_path %> or

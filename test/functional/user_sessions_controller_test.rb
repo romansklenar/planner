@@ -7,13 +7,13 @@ class UserSessionsControllerTest < ActionController::TestCase
   end
   
   def test_create_invalid
-    post :create, :user_session => { :username => "foo", :password => "badpassword" }
+    post :create, :user_session => { :login => "foo", :password => "badpassword" }
     assert_template 'new'
     assert_nil UserSession.find
   end
   
   def test_create_valid
-    post :create, :user_session => { :username => "foo", :password => "secret" }
+    post :create, :user_session => { :login => "foo", :password => "secret" }
     assert_redirected_to root_url
     assert_equal users(:foo), UserSession.find.user
   end
