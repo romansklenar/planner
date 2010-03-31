@@ -1,6 +1,6 @@
 <% title "Log in" %>
 
-<p>Don't have an account? <%= link_to "Sign up!", signup_path %></p>
+<p>Don't have an account? <%= link_to "Sign up!", new_account_path %></p>
 
 <% form_for @user_session do |f| %>
   <%= f.error_messages %>
@@ -11,6 +11,9 @@
   <p>
     <%= f.label :password %><br />
     <%= f.password_field :password %>
+  </p>
+  <p>
+    <%= f.check_box :remember_me %><%= f.label :remember_me %><br />
   </p>
   <p><%= f.submit "Log in" %></p>
 <% end %>
