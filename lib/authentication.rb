@@ -41,6 +41,15 @@ module Authentication
       redirect_to login_url
     end
   end
+
+  def require_no_user
+    unless logged_in?
+      flash[:notice] = "You must be logged out to access this page"
+      store_location
+      redirect_to account_url
+      return false
+    end
+  end
   
   def redirect_back_or_default(default)
     redirect_to(session[:return_to] || default)

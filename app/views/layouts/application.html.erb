@@ -10,11 +10,12 @@
     <div id="container">
       <div id="user_nav">
         <% if current_user %>
-          <%= link_to "Edit Profile", edit_user_path(:current) %> |
+          <%= link_to "Edit My Account", edit_user_path(:current) %> |
+          <%= link_to "Show Stats", user_path(@user) %> |
           <%= link_to "Logout", logout_path %>
         <% else %>
-          <%= link_to "Register", new_user_path %> |
-          <%= link_to "Login", login_path %>
+          <%= link_to "Sign up!", signup_path %> |
+          <%= link_to "Log in", login_path %>
         <% end %>
       </div>
       
