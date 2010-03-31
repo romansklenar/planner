@@ -20,6 +20,11 @@ class CreateUsers < ActiveRecord::Migration
       t.timestamps
     end
 
+    add_index :users, :login
+    add_index :users, :email
+    add_index :users, :persistence_token
+    add_index :users, :last_request_at
+
     # default admin user
     admin = User.new
     admin.login = "admin"
