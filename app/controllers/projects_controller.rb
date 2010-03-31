@@ -1,4 +1,6 @@
 class ProjectsController < ApplicationController
+  before_filter :require_user
+
   def index
     @projects = Project.find(:all)
   end

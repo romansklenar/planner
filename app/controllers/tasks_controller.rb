@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  before_filter :require_user
+
   def new
     @task = Task.new(:project_id => params[:project_id])
   end
