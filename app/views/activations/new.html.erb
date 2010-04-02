@@ -1,0 +1,7 @@
+<% title "Activate your account" %>
+
+<% form_for @user, :url => activate_path(@user), :html => { :method => :post } do |f| %>
+  <%= f.error_messages %>
+  <%= hidden_field_tag :activation_code, params[:activation_code] %>
+  <%= f.submit "Activate" %>
+<% end %>
