@@ -1,0 +1,27 @@
+= GTD ToDo
+
+
+== Požadavky na instalaci
+
+* Programovací jazyk Ruby (http://www.ruby-lang.org/en/downloads/)
+* Balíčkovací systém RubyGems (http://www.rubygems.org)
+* Framework Ruby On Rails (http://rubyonrails.org/down)
+* Databázi SQLite
+
+
+== Instalace
+
+* Na příkazovém řádku se přepněte do adresáře s aplikací
+* Příkazem `rake setup` nainstalujte potřebné gemy, vytvořte databáze, databázové schéma a načtěte testovací data do databáze
+* Spusťte aplikační server příkazem `ruby script/server`
+* Otevřete aplikaci v prohlížeči na adrese http://localhost:3000/
+
+
+== Testování
+
+* Na příkazovém řádku se přepněte do adresáře s aplikací
+* Vytvořte databáze příkazem `rake db:create:all`
+* Vytvořte databázové schéma příkazem `rake db:migrate`
+* Načtěte testovací data do databáze příkazem `rake rake db:test:load`
+* Ověřte příkazem `rake db:test:prepare` správnou funkčnost testů
+* Spusťte testy příkazem `rake test`
