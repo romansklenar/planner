@@ -10,18 +10,6 @@ RAILS_GEM_VERSION = '2.3.5' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
-# Compatibility with Gem version 1.3.6 and higher
-if Gem::VERSION >= "1.3.6"
-    module Rails
-        class GemDependency
-            def requirement
-                r = super
-                (r == Gem::Requirement.default) ? nil : r
-            end
-        end
-    end
-end
-
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here.
   # Application configuration should go into files in config/initializers
@@ -39,7 +27,7 @@ Rails::Initializer.run do |config|
   # config.gem "aws-s3", :lib => "aws/s3"
   config.gem "authlogic", :version => '2.1.3'
   config.gem "formtastic", :version => '0.9.7'
-  config.gem "acts-as-taggable-on", :version => '2.0.0.rc1'
+  config.gem "acts-as-taggable-on", :version => '>= 2.0.0'
   config.gem "icalendar", :version => '1.1.3'
 
   # Only load the plugins named here, in the order given. By default, all plugins 
