@@ -7,6 +7,15 @@ class ProjectsController < ApplicationController
   
   def show
     @project = Project.find(params[:id])
+
+    respond_to do |format|
+      format.html
+      format.ics do
+        cal = @project.to_calendar
+        cal.publish
+        render :text => cal.to_ical
+      end
+    end
   end
   
   def new
