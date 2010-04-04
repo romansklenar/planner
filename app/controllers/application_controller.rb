@@ -28,6 +28,14 @@ class ApplicationController < ActionController::Base
     @current_user = current_user_session && current_user_session.record
   end
 
+  def load_collection
+    raise 'Not implemented'
+  end
+
+  def load_object
+    raise 'Not implemented'
+  end
+
   def logged_in?
     current_user
   end
