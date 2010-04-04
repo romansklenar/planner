@@ -12,7 +12,8 @@
 == Instalace
 
 * Na příkazovém řádku se přepněte do adresáře s aplikací
-* Příkazem `rake setup` nainstalujte potřebné gemy, vytvořte databáze, databázové schéma a načtěte testovací data do databáze
+* Příkazem `rake gems:install` nainstalujte potřebné gemy
+* Příkazem `rake setup` vytvořte databáze, databázové schéma a načtěte testovací data do databáze
 * Spusťte aplikační server příkazem `ruby script/server`
 * Otevřete aplikaci v prohlížeči na adrese http://localhost:3000/
 
