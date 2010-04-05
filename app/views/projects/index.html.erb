@@ -1,17 +1,25 @@
 <% title "Projects" %>
 
+<% form_tag projects_path, :method => :get do %>
+  <p>
+    <%= text_field_tag :search, params[:search] %>
+    <%= submit_tag "Search", :name => nil %>
+  </p>
+<% end %>
+
 <table>
-  <tr>
-    <th>Name</th>
-  </tr>
-  <% for project in @projects %>
-    <tr>
-      <td><%= link_to h(project.name), project %></td>
-      <td><%= link_to "Edit", edit_project_path(project) %></td>
-      <td><%= link_to "iCal", project_path(project, :format => :ics)%></td>
-      <td><%= link_to "Destroy", project, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
+  <tr><th>Name</th></tr>
+  <%= render :partial => "project", :collection => @projects %>
 </table>
 
 <p><%= link_to "New Project", new_project_path %></p>
+<hr />
+
+<%- unless @archived_projects.empty? -%>
+  <h2>Archived projects</h2>
+
+  <table>
+    <tr><th>Name</th></tr>
+    <%= render :partial => "project", :collection => @archived_projects %>
+  </table>
+<%- end -%>
