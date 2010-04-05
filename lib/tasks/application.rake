@@ -1,12 +1,24 @@
 desc "Setup all for app"
-task :setup => ['db:migrate', 'load:projects', 'load:tasks']
+task :setup => ['db:migrate', 'load:users', 'load:projects', 'load:tasks']
 
 namespace :load do
+  desc "Load users into database"
+  task :users do
+    User.delete_all
+    admin = User.new
+    admin.login = "admin"
+    admin.email = "admin@example.com"
+    admin.password = admin.password_confirmation = "demo"
+    admin.save
+    admin.activate!
+  end
+
   desc "Load projects into database"
   task :projects do
     Project.delete_all
+    users = User.all
     ['Yardwork', 'Housework', 'Programming'].each do |name|
-      Project.create!(:name => name)
+      Project.create!(:name => name, :user => users.rand)
     end
   end
   

@@ -10,7 +10,16 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :user_sessions
 
-  map.resources :projects
-  map.resources :tasks
+  map.resources :projects,
+    :has_many => [:tags, :tasks],
+    :member => { :archive => :get,
+                 :restore => :get }
+
+  map.resources :tasks,
+    :has_many => :tags,
+    :member => { :toggle => :post },
+    :collection => { :toggle_all => :post,
+                     :recent     => :get }
+
   map.root :projects
 end

@@ -1,4 +1,6 @@
 class Task < ActiveRecord::Base
+  attr_accessible :name, :complete, :project
+  
   belongs_to :project
 
   def self.find_incomplete(options = {})

@@ -25,13 +25,6 @@ class CreateUsers < ActiveRecord::Migration
     add_index :users, :persistence_token
     add_index :users, :last_request_at
 
-    # default admin user
-    admin = User.new
-    admin.login = "admin"
-    admin.email = "admin@example.com"
-    admin.password = admin.password_confirmation = "demo"
-    admin.save
-
   end
   
   def self.down
