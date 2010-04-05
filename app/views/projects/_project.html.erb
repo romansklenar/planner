@@ -1,11 +1,11 @@
 <tr>
-  <td><%= link_to h(project.name), project_path(project.id) %></td>
-  <td><%= link_to "Edit", edit_project_path(project.id) %></td>
+  <td><%= link_to h(project.name), project_path(project) %></td>
+  <td><%= link_to "Edit", edit_project_path(project) %></td>
   <td>
-    <%= link_to_unless project.archived?, "Archive", archive_project_path(project.id) do
-      link_to "Restore", restore_project_path(project.id)
+    <%= link_to_unless project.archived?, "Archive", archive_project_path(project) do
+      link_to "Restore", restore_project_path(project)
     end -%>
   </td>
-  <td><%= link_to "iCal", project_path(project.id, :format => :ics) %></td>
-  <td><%= link_to "Destroy", project_path(project.id), :confirm => 'Are you sure?', :method => :delete %></td>
+  <td><%= link_to "iCal", project_path(project, :format => :ics) %></td>
+  <td><%= link_to "Destroy", project_path(project), :confirm => 'Are you sure?', :method => :delete %></td>
 </tr>

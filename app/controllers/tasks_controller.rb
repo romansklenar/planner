@@ -15,7 +15,7 @@ private
   end
 
   def load_object
-    @task = current_user.tasks.find(params[:id])
+    @task = current_user.tasks.find(params[:id].to_i)
   end
 
 public

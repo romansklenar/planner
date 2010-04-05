@@ -1,8 +1,7 @@
 class ProjectsController < ApplicationController
   before_filter :require_user
   before_filter :load_collection, :only => ['index', 'new', 'create']
-  before_filter :load_object,     :only => ['show', 'edit', 'update', 'destroy']
-  before_filter :load_object,     :only => ['archive', 'restore']
+  before_filter :load_object,     :only => ['show', 'edit', 'update', 'destroy', 'archive', 'restore']
 
 
 private
@@ -13,10 +12,10 @@ private
   end
 
   def load_object
-    if current_user.projects.exists? params[:id]
-      @project = current_user.projects.find(params[:id])
+    if current_user.projects.exists? params[:id].to_i
+      @project = current_user.projects.find(params[:id].to_i)
     else
-      @project = current_user.archived_projects.find(params[:id])
+      @project = current_user.archived_projects.find(params[:id].to_i)
     end
   end
 
@@ -84,7 +83,7 @@ public
   end
 
   def restore
-    Project.restore(params[:id])
+    Project.restore(params[:id].to_i)
     flash[:notice] = "Successfully restored project from archive."
     redirect_to projects_url
   end

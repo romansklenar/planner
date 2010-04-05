@@ -23,4 +23,8 @@ class Task < ActiveRecord::Base
     # event.url = task_url(self)
     return event
   end
+
+  def to_param
+    "#{id}-#{name.parameterize}"
+  end
 end
