@@ -10,7 +10,7 @@ private
     unless params[:project_id].blank?
       @tasks = current_user.projects.find(params[:project_id]).tasks
     else
-      @tasks = current_user.tasks.find(:all)
+      @tasks = current_user.tasks.incomplete
     end
   end
 
@@ -51,5 +51,12 @@ public
     @task.destroy
     flash[:notice] = "Successfully destroyed task."
     redirect_to @task.project
+  end
+
+  def sort
+    params[:tasks].each_with_index do |id, index|
+      Task.update_all(['position=?', index+1], ['id=?', id])
+    end
+    render :nothing => true
   end
 end

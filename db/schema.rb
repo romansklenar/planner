@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100404160908) do
+ActiveRecord::Schema.define(:version => 20100405115115) do
 
   create_table "archived_projects", :id => false, :force => true do |t|
     t.integer  "id"
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20100404160908) do
     t.boolean  "complete",   :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "position"
   end
 
   create_table "users", :force => true do |t|

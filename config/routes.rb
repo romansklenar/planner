@@ -18,7 +18,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tasks,
     :has_many => :tags,
     :member => { :toggle => :post },
-    :collection => { :toggle_all => :post,
+    :collection => { :sort       => :post,
+                     :toggle_all => :post,
                      :recent     => :get }
 
   map.root :projects

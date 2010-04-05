@@ -1,13 +1,19 @@
 class Task < ActiveRecord::Base
+  default_scope :order => 'position ASC'
+  named_scope :incomplete, :conditions => { :complete => false }
+
   attr_accessible :name, :complete, :project
-  
+
   belongs_to :project
 
-  def self.find_incomplete(options = {})
-    with_scope :find => options do
-      find_all_by_complete(false, :order => 'created_at DESC')
-    end
-  end
+  acts_as_list :scope => :project
+
+
+  #def self.find_incomplete(options = {})
+  #  with_scope :find => options do
+  #    find_all_by_complete(false, :order => 'created_at DESC')
+  #  end
+  #end
 
   def to_event
     event = Icalendar::Event.new

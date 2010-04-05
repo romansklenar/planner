@@ -42,6 +42,7 @@ Rails::Initializer.run do |config|
   config.gem "acts-as-taggable-on", :version => '>= 2.0.0'
   config.gem "icalendar", :version => '1.1.3'
   config.gem "acts_as_archive", :version => '<= 0.2.0'
+  config.gem "acts_as_list"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
