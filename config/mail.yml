@@ -1,17 +1,15 @@
 development:
-  :address: smtp.server.com
-  :port: 25
-  :domain: localhost.localdomain
-  :authentication: plain
-  :user_name: user
-  :password: pass
-  :tls: true
+  address: smtp.server.com
+  port: 25
+  domain: localhost.localdomain
+  authentication: plain
+  user_name: user
+  password: pass
 
 production:
-  :address: smtp.server.com
-  :port: 25
-  :domain: localhost.localdomain
-  :authentication: plain
-  :user_name: user
-  :password: pass
-  :tls: true
+  address: smtp.server.com
+  port: 25
+  domain: localhost.localdomain
+  authentication: plain
+  user_name: user
+  password: pass
