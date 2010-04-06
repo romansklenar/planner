@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100405115115) do
+ActiveRecord::Schema.define(:version => 20100406205136) do
 
   create_table "archived_projects", :id => false, :force => true do |t|
     t.integer  "id"
@@ -57,10 +57,13 @@ ActiveRecord::Schema.define(:version => 20100405115115) do
   create_table "tasks", :force => true do |t|
     t.integer  "project_id"
     t.string   "name"
-    t.boolean  "complete",   :default => false, :null => false
+    t.boolean  "completed",    :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
+    t.datetime "completed_at"
+    t.date     "due_to"
+    t.date     "scheduled_to"
   end
 
   create_table "users", :force => true do |t|

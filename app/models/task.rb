@@ -1,20 +1,26 @@
 class Task < ActiveRecord::Base
-  default_scope :order => 'position ASC'
-  named_scope :incomplete, :conditions => { :complete => false }
-
-  attr_accessible :name, :complete, :project
-
+  attr_accessible :name, :completed, :completed_at, :due_to, :scheduled_at, :project
   belongs_to :project
-
   acts_as_list :scope => :project
   acts_as_taggable
 
+  default_scope :order => 'position ASC'
+  named_scope :incomplete, :conditions => { :completed => false }
+  named_scope :completed, :conditions => { :completed => true }
+  named_scope :recently_completed, :order => 'completed_at DESC', :limit => 15
 
-  #def self.find_incomplete(options = {})
-  #  with_scope :find => options do
-  #    find_all_by_complete(false, :order => 'created_at DESC')
-  #  end
-  #end
+  validates_presence_of :name, :project
+
+
+
+  def completed=(value)
+    completed = value
+    self.completed_at = completed ? Time.now.utc : nil
+  end
+
+  def completed?
+    completed == true
+  end
 
   def to_event
     event = Icalendar::Event.new

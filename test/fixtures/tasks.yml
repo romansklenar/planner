@@ -1,9 +1,9 @@
 one:
   project_id: 1
   name: MyString
-  complete: false
+  completed: false
 
 two:
   project_id: 1
   name: MyString
-  complete: false
+  completed: false
