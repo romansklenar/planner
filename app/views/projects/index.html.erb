@@ -7,15 +7,15 @@
   </p>
 <% end %>
 
-<table>
-  <tr><th>Name</th></tr>
-  <%= render :partial => "project", :collection => @projects %>
-</table>
+
+<%= render :partial => "project", :collection => @projects %>
 
 <p><%= link_to "New Project", new_project_path %></p>
-<hr />
+
 
 <%- unless @archived_projects.empty? -%>
+  <hr />
+  
   <h2>Archived projects</h2>
 
   <table>

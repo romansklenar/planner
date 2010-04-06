@@ -1,0 +1,15 @@
+<% content_tag_for :li, task do %>
+  <%= check_box_tag('completed[]', task.id, task.completed?, :onclick => remote_function(:url => toggle_task_path(task))) %>
+  &nbsp;
+  <%# button_to (task.completed?) ? "Open again" : "Complete", toggle_task_path(task) %>
+  <strong><%=h task.name %></strong>
+  <% unless task.completed? or task.due_to.nil? %>
+    <span>, due in <%= distance_of_time_in_words_to_now task.due_to %></span>
+  <% end %>
+
+  <span class="actions">
+  &nbsp; &nbsp;
+  <%= link_to "Edit", edit_task_path(task) %> |
+  <%= link_to "Delete", task_path(task), :confirm => "Are you sure to delete task #{h(task.name)}?", :method => 'delete' %>
+  </span>
+<% end %>

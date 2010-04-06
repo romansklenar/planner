@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_filter :require_user
   before_filter :load_collection, :only => ['index', 'new', 'create']
-  before_filter :load_object,     :only => ['show', 'edit', 'update', 'destroy']
+  before_filter :load_object,     :only => ['show', 'edit', 'update', 'destroy', 'toggle']
 
 
 private
@@ -53,10 +53,27 @@ public
     redirect_to @task.project
   end
 
+  # Sorts task inside project
   def sort
     params[:tasks].each_with_index do |id, index|
       Task.update_all(['position=?', index+1], ['id=?', id])
     end
     render :nothing => true
+  end
+
+  # Toggles between completed and uncompleted states
+  def toggle
+    if @task.toggle! :completed
+      flash[:notice] = (@task.completed?) ? 'Task was completed' : 'Task was opened again' unless request.xhr?
+    end
+    respond_to do |format|
+      format.html { redirect_to projects_path }
+      format.js do
+        render :update do |page|
+          page.replace dom_id(@task), :partial => 'task', :object => @task
+          page.visual_effect :highlight, dom_id(@task), :duration => 1.5, :delay => 0.3
+        end
+      end
+    end
   end
 end
