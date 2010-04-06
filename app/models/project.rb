@@ -5,6 +5,7 @@ class Project < ActiveRecord::Base
   has_many :tasks, :order => "position"
   
   acts_as_archive
+  acts_as_taggable
   
 
   def self.restore(id)

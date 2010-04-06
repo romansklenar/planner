@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   has_many :tasks, :through => :projects
 
   acts_as_authentic
+  acts_as_tagger
 
 
   def active?

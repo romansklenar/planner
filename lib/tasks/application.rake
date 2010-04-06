@@ -17,8 +17,13 @@ namespace :load do
   task :projects do
     Project.delete_all
     users = User.all
-    ['Yardwork', 'Housework', 'Programming'].each do |name|
-      Project.create!(:name => name, :user => users.rand)
+    tags = ['@home, php', '@home, ruby', '@school, java']
+    projects = ['Yardwork', 'Housework', 'Programming']
+    
+    projects.each do |name|
+      user = users.rand
+      project = Project.create!(:name => name, :user => user)
+      user.tag(project, :with => tags.rand, :on => :tags)
     end
   end
   
@@ -28,7 +33,7 @@ namespace :load do
     projects = Project.all
     words = File.readlines("./lib/tasks/words").sort_by { rand }
     35.times do
-      Task.create!(:name => words.pop.titleize, :project => projects.rand)
+      Task.create!(:name => words.pop.titleize.strip, :project => projects.rand)
     end
   end
 end
