@@ -9,6 +9,7 @@
       (<%= link_to "Edit", edit_task_path(task) %> |
       <%= link_to "Destroy", task, :confirm => "Are you sure?", :method => :delete %>)
     <% end %>
+    <%= draggable_element("task_#{task.id}", :revert => true) %>
   <% end %>
 </ul>
 <%= sortable_element("tasks", :url => sort_tasks_path, :handle => "handle") %>
