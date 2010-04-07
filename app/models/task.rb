@@ -24,8 +24,9 @@ class Task < ActiveRecord::Base
 
   def to_event
     event = Icalendar::Event.new
-    # event.start = self.date.strftime("%Y%m%dT%H%M%S")
-    # event.end = self.due_to.strftime("%Y%m%dT%H%M%S")
+    event.start = self.created_at.strftime("%Y%m%dT%H%M%S")
+    event.start = self.scheduled_to.strftime("%Y%m%dT%H%M%S") unless self.scheduled_to.nil?
+    event.end = self.due_to.strftime("%Y%m%dT%H%M%S") unless self.due_to.nil?
     event.summary = self.name
     # event.description = self.description
     # event.location = 'Here !'
