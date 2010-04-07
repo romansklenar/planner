@@ -1,18 +1,10 @@
 <% title @project.name %>
 
 <h2>Tasks</h2>
-<ul id="tasks">
-  <% for task in @project.tasks %>
-    <% content_tag_for :li, task do %>
-      <span class="handle">[::]</span>
-      <%=h task.name %>
-      (<%= link_to "Edit", edit_task_path(task) %> |
-      <%= link_to "Destroy", task, :confirm => "Are you sure?", :method => :delete %>)
-    <% end %>
-    <%= draggable_element("task_#{task.id}", :revert => true) %>
-  <% end %>
+<ul id="tasks" class="tasklist">
+  <%= render :partial => "tasks/task", :collection => @project.tasks %>
 </ul>
-<%= sortable_element("tasks", :url => sort_tasks_path, :handle => "handle") %>
+<%= sortable_element("tasks", :url => sort_tasks_path, :complete => visual_effect(:highlight, "tasks"), :handle => "handle") %>
 
 <p>
   <%= link_to "New Task", new_task_path(:project_id => @project) %> |
