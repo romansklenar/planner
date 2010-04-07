@@ -1,4 +1,4 @@
-<h2>
+<% content_tag_for :h2, project do %>
   <%= link_to h(project.name), project_path(project) %>
   <span class="actions">
   &nbsp; &nbsp;
@@ -12,7 +12,8 @@
   <span class="tags">
     <%= project.tags_from(project.user) %>
   </span>
-</h2>
+<% end %>
+<%= drop_receiving_element(dom_id(project), :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
 
 <%- unless project.tasks.empty? -%>
   <ul class="tasklist">

@@ -119,3 +119,7 @@ h2 .tags {
   font-size: 80%;
   float: right;
 }
+
+.hover {
+  background-color: #eee;
+}
