@@ -17,8 +17,8 @@ a img {
   border: none;
 }
 
-a {
-  color: #0000FF;
+a, a:visited {
+  color: #305899;
 }
 
 .clear {
