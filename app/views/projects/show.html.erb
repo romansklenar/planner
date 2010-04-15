@@ -2,11 +2,11 @@
 
 <h2>Tasks</h2>
 <ul id="tasks" class="tasklist">
-  <%= render :partial => "tasks/task", :collection => @project.tasks %>
+  <%= render :partial => "tasks/task", :collection => @project.tasks, :locals => { :project => @project } %>
 </ul>
-<%= sortable_element("tasks", :url => sort_tasks_path, :complete => visual_effect(:highlight, "tasks"), :handle => "handle") %>
+<%= sortable_element("tasks", :url => sort_project_tasks_path(@project), :complete => visual_effect(:highlight, "tasks"), :handle => "handle") %>
 
 <p>
-  <%= link_to "New Task", new_task_path(:project_id => @project) %> |
+  <%= link_to "New Task", new_project_task_path(@project) %> |
   <%= link_to "View All Projects", projects_path %>
 </p>

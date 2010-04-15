@@ -8,20 +8,22 @@ private
 
   def load_collection
     unless params[:project_id].blank?
-      @tasks = current_user.projects.find(params[:project_id]).tasks
+      @project = current_user.projects.find(params[:project_id].to_i)
+      @tasks = @project.tasks
     else
       @tasks = current_user.tasks.incomplete
     end
   end
 
   def load_object
-    @task = current_user.tasks.find(params[:id].to_i)
+    @project = current_user.projects.find(params[:project_id].to_i)
+    @task = @project.tasks.find(params[:id].to_i)
   end
 
 public
 
   def new
-    @task = @tasks.new #(:project_id => params[:project_id])
+    @task = @tasks.new
   end
   
   def create
@@ -50,7 +52,7 @@ public
   def destroy
     @task.destroy
     flash[:notice] = "Successfully destroyed task."
-    redirect_to @task.project
+    redirect_back_or_default @task.project
   end
 
   # Sorts task inside project
@@ -70,7 +72,7 @@ public
       format.html { redirect_to projects_path }
       format.js do
         render :update do |page|
-          page.replace dom_id(@task), :partial => 'task', :object => @task
+          page.replace dom_id(@task), :partial => 'task', :object => @task, :locals => { :project => @project }
           page.visual_effect :highlight, dom_id(@task), :duration => 1.5, :delay => 0.3
         end
       end

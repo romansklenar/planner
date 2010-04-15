@@ -1,6 +1,5 @@
 <%= error_messages_for :task %>
-<% form_for @task do |f| %>
-  <%= f.hidden_field :project_id %>
+<% form_for [@project, @task] do |f| %>
   <p>
     <%= f.label :name %><br />
     <%= f.text_field :name %>

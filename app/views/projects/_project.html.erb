@@ -17,12 +17,10 @@
 
 <%- unless project.tasks.empty? -%>
   <ul class="tasklist">
-    <%= render :partial => "tasks/task", :collection => project.tasks %>
+    <%= render :partial => "tasks/task", :collection => project.tasks, :locals => { :project => project } %>
   </ul>
-  <p><%= link_to "Add new task", new_task_path %></p>
-<%- else -%>
-  <p>This project has no tasks. <%= link_to "Add one", new_task_path %>!</p>
 <%- end -%>
+  <p><%= link_to "Add new task", new_project_task_path(project) %></p>
 <hr />
 
 <noscript><br /><%= submit_tag "Complete checked tasks" %></noscript>
