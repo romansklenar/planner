@@ -17,6 +17,14 @@ class ApplicationController < ActionController::Base
 
 
   private
+
+  # could be opening application to attack by allowing
+  # users to indirectly call find on any class at all.
+  def model_from_dom_id(dom_id)
+    dom_id =~ /(.*?)_(\d+)$/
+    class_name, id = $1, $2
+    class_name.classify.constantize.find(id)
+  end
   
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
