@@ -1,0 +1,21 @@
+<% title "Task detail" %>
+
+<p><strong>Task:</strong> <%=h @task.name %></p>
+
+<p><strong>Project:</strong> <%= link_to @task.project.name, @task.project %></p>
+
+<p><strong>Created at:</strong> <%=h @task.created_at.to_s(:short) %></p>
+
+<% if @task.completed? %>
+<p><strong>Completed at:</strong> <%=h @task.completed_at.to_s(:short) %></p>
+<% else %>
+<p><strong>Completed:</strong> <%=h @task.completed? %></p>
+<% end %>
+
+<% unless @task.due_to.nil? %>
+<p><strong>Due to:</strong> <%=h @task.due_to.to_s(:short) %></p>
+<% end %>
+
+<% unless @task.scheduled_to.nil? %>
+<p><strong>Scheduled to:</strong> <%=h @task.scheduled_to.to_s(:short) %></p>
+<% end %>

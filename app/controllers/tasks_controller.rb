@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_filter :require_user
   before_filter :load_collection, :only => ['index', 'new', 'create']
-  before_filter :load_object,     :only => ['show', 'edit', 'update', 'destroy', 'toggle']
+  before_filter :load_object,     :only => ['edit', 'update', 'destroy', 'toggle']
 
 
 private
@@ -21,6 +21,10 @@ private
   end
 
 public
+
+  def show
+    @task = Task.find(params[:id].to_i)
+  end
 
   def new
     @task = @tasks.new
@@ -76,6 +80,14 @@ public
           page.visual_effect :highlight, dom_id(@task), :duration => 1.5, :delay => 0.2
         end
       end
+    end
+  end
+
+  # Recently completed tasks
+  def recent
+    @tasks = Task.recently_completed
+    respond_to do |format|
+      format.atom # recent.atom.builder
     end
   end
 end

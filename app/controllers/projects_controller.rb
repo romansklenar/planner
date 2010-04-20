@@ -91,7 +91,6 @@ public
   # allows dragging tasks to project
   def accept
     task = model_from_dom_id(params[:draggable_element])
-    old_project = task.project
     @project.tasks.push(task) unless @project.tasks.exists?(task)
     flash[:notice] = "Task #{task.name} successfully moved to project #{@project.name}" unless request.xhr?
 

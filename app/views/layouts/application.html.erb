@@ -3,6 +3,7 @@
 <html>
   <head>
     <title><%= h(yield(:title) || "Untitled") %></title>
+    <%= auto_discovery_link_tag(:atom, recent_tasks_path(:format => :atom)) %>
     <%= stylesheet_link_tag 'application' %>
     <%= javascript_include_tag :defaults %>
     <%= yield(:head) %>

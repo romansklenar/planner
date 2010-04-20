@@ -9,6 +9,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :password_resets
   map.resources :users
   map.resources :user_sessions
+  map.resources :tasks, :only => [:show], :collection => { :recent => :get }
 
   map.resources :projects, :member => { :archive => :get, :restore => :get, :accept => :post } do |projects|
     # projects.resource  :user

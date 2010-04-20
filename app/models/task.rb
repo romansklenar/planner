@@ -7,7 +7,7 @@ class Task < ActiveRecord::Base
   default_scope :order => 'position ASC'
   named_scope :incomplete, :conditions => { :completed => false }
   named_scope :completed, :conditions => { :completed => true }
-  named_scope :recently_completed, :order => 'completed_at DESC', :limit => 15
+  named_scope :recently_completed, :conditions => { :completed => true }, :order => 'completed_at DESC', :limit => 15
 
   validates_presence_of :name, :project
 

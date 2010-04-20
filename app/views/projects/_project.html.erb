@@ -11,7 +11,7 @@
     <%= link_to "Delete", project_path(project), :confirm => "Are you sure to delete project #{h(project.name)}?", :method => 'delete' %>
     </span>
     <span class="tags">
-      <%= project.tags_from(project.user) %>
+      <%=h project.tags_from(project.user) %>
     </span>
   </h2>
 
