@@ -1,17 +1,17 @@
-<% title "Tags" %>
+<% title "Filtering by tags" %>
 
-<table>
-  <tr>
-    <th>Name</th>
-  </tr>
-  <% for tag in @tags %>
-    <tr>
-      <td><%=h tag.name %></td>
-      <td><%= link_to "Show", tag %></td>
-      <td><%= link_to "Edit", edit_tag_path(tag) %></td>
-      <td><%= link_to "Destroy", tag, :confirm => 'Are you sure?', :method => :delete %></td>
-    </tr>
-  <% end %>
-</table>
+<%- unless @tasks.empty? -%>
+<h2>Tags</h2>
+<ul class="_tasklist">
+  <%= render :partial => "tasks/task", :collection => @tasks %>
+</ul>
+<%- end -%>
 
-<p><%= link_to "New Tag", new_tag_path %></p>
+<%- unless @projects.empty? -%>
+<h2>Projects</h2>
+<%= render :partial => "projects/project", :collection => @projects %>
+<%- end -%>
+
+<%- if @tasks.empty? and @projects.empty? -%>
+Nothing found for tag '<%=h @tag %>'.
+<%- end -%>

@@ -4,13 +4,14 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password  'forgot-password', :controller => 'password_resets', :action => 'new'
   map.register '/register/:activation_code', :controller => 'activations', :action => 'new'
   map.activate '/activate/:id', :controller => 'activations', :action => 'create'
-  map.resources :tags
+  map.tags_filtering '/tags/:search', :controller => 'tags', :action => 'index', :seach => nil
 
   map.resource :account, :controller => "users"
   map.resources :password_resets
   map.resources :users
   map.resources :user_sessions
   map.resources :tasks, :only => [:show], :collection => { :recent => :get }
+  map.resources :tags, :except => [:index, :show]
 
   map.resources :projects, :member => { :archive => :get, :restore => :get, :accept => :post } do |projects|
     # projects.resource  :user

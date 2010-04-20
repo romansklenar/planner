@@ -29,6 +29,7 @@ public
   def index
     @projects = apply_search(@projects)
     @archived_projects = apply_search(@archived_projects)
+    @tags = current_user.tag_counts
     render
   end
   
