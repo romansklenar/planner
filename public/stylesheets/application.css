@@ -98,6 +98,11 @@ ul.tasklist li {
   margin: 0 0 0.5em;
 }
 
+ul.tasklist li.task.completed {
+  color: #9A9A9A;
+  opacity: 0.6;
+}
+
 li .handle {
   font-size: 12px;
   cursor: pointer;
@@ -133,4 +138,14 @@ h2 .tags {
   padding: 13px;
   border: 2px solid #CCC;
   font-size: 0;
+  z-index: 10000;
+  border-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-topleft: 5px;
+  -moz-border-radius-topright: 5px;
+  -khtml-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -webkit-border-bottom-right-radius: 5px;
 }

@@ -1,17 +1,24 @@
-<% content_tag_for :li, task do %>
+<% content_tag_for :li, task, :class => task.completed? ? 'completed' : nil do %>
   <span class="handle">[::]</span>
   <%= check_box_tag('completed[]', task.id, task.completed?, :id => nil, :onclick => remote_function(:url => toggle_project_task_path(project, task))) %>
   &nbsp;
   <%# button_to (task.completed?) ? "Open again" : "Complete", toggle_project_task_path(project, task) %>
-  <strong><%=h task.name %></strong>
+  <% if task.completed? %>
+    <del><%=h task.name %></del>
+  <% else %>
+    <strong><%=h task.name %></strong>
+  <% end %>
+
   <% unless task.completed? or task.due_to.nil? %>
     <span>, due in <%= distance_of_time_in_words_to_now task.due_to %></span>
   <% end %>
 
-  <span class="actions">
-  &nbsp; &nbsp;
-  <%= link_to "Edit", edit_project_task_path(project, task) %> |
-  <%= link_to "Delete", project_task_path(project, task), :confirm => "Are you sure to delete task #{h(task.name)}?", :method => 'delete' %>
-  </span>
+  <% if !task.completed? %>
+    <span class="actions">
+    &nbsp; &nbsp;
+    <%= link_to "Edit", edit_project_task_path(project, task) %> |
+    <%= link_to "Delete", project_task_path(project, task), :confirm => "Are you sure to delete task #{h(task.name)}?", :method => 'delete' %>
+    </span>
+  <% end %>
   <%= draggable_element(dom_id(task), {:revert => true, :handle => "'handle'"}) %>
 <% end %>
