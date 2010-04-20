@@ -1,26 +1,42 @@
-<% content_tag_for :h2, project do %>
-  <%= link_to h(project.name), project_path(project) %>
-  <span class="actions">
-  &nbsp; &nbsp;
-  <%= link_to "Edit", edit_project_path(project) %> |
-  <%= link_to_unless project.archived?, "Archive", archive_project_path(project) do
-    link_to "Restore", restore_project_path(project)
-  end -%> |
-  <%= link_to "iCal", project_path(project, :format => :ics) %> |
-  <%= link_to "Delete", project_path(project), :confirm => "Are you sure to delete project #{h(project.name)}?", :method => 'delete' %>
-  </span>
-  <span class="tags">
-    <%= project.tags_from(project.user) %>
-  </span>
-<% end %>
-<%= drop_receiving_element(dom_id(project), :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
+<% content_tag_for :div, project do %>
+  <h2>
+    <%= link_to h(project.name), project_path(project) %>
+    <span class="actions">
+    &nbsp; &nbsp;
+    <%= link_to "Edit", edit_project_path(project) %> |
+    <%= link_to_unless project.archived?, "Archive", archive_project_path(project) do
+        link_to "Restore", restore_project_path(project)
+    end -%> |
+    <%= link_to "iCal", project_path(project, :format => :ics) %> |
+    <%= link_to "Delete", project_path(project), :confirm => "Are you sure to delete project #{h(project.name)}?", :method => 'delete' %>
+    </span>
+    <span class="tags">
+      <%= project.tags_from(project.user) %>
+    </span>
+  </h2>
 
-<%- unless project.tasks.empty? -%>
-  <ul class="tasklist">
+  <%= drop_receiving_element(dom_id(project), 
+    :accept => "task",
+    :hoverclass => "hover",
+    #:with => "'draggable_element=' + (element.id)",
+    #:url => accept_project_path(project)
+    #:confirm => "Are you sure you want to do this?",
+    :onDrop => "function(draggable, droppable){
+        draggable.parentNode.removeChild(draggable);
+        droppable.down('ul').appendChild(draggable);
+        new Ajax.Request('#{accept_project_path(project)}', {asynchronous:true, evalScripts:true, parameters:'draggable_element=' + (draggable.id)});
+    }" # kdyby selhávaly požadavky, tak je třeba přenášet i param authenticity_token
+  ) %>
+
+  <%- unless project.tasks.empty? -%>
+  <ul id="<%= dom_id(project) %>_tasklist" class="tasklist">
     <%= render :partial => "tasks/task", :collection => project.tasks, :locals => { :project => project } %>
   </ul>
-<%- end -%>
-  <p><%= link_to "Add new task", new_project_task_path(project) %></p>
-<hr />
+  <%- end -%>
 
-<noscript><br /><%= submit_tag "Complete checked tasks" %></noscript>
+  <p><%= link_to "Add new task", new_project_task_path(project) %></p>
+  <hr />
+
+  <noscript><br /><%= submit_tag "Complete checked tasks" %></noscript>
+
+<% end %>

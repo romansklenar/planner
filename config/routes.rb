@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
   map.resources :user_sessions
 
-  map.resources :projects, :member => { :archive => :get, :restore => :get } do |projects|
+  map.resources :projects, :member => { :archive => :get, :restore => :get, :accept => :post } do |projects|
     # projects.resource  :user
     projects.resources :tags
     projects.resources :tasks,

@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_filter :require_user
   before_filter :load_collection, :only => ['index', 'new', 'create']
-  before_filter :load_object,     :only => ['show', 'edit', 'update', 'destroy', 'archive', 'restore']
+  before_filter :load_object,     :only => ['show', 'edit', 'update', 'destroy', 'archive', 'restore', 'accept']
 
 
 private
@@ -86,5 +86,22 @@ public
     Project.restore(params[:id].to_i)
     flash[:notice] = "Successfully restored project from archive."
     redirect_to projects_url
+  end
+
+  # allows dragging tasks to project
+  def accept
+    task = model_from_dom_id(params[:draggable_element])
+    old_project = task.project
+    @project.tasks.push(task) unless @project.tasks.exists?(task)
+    flash[:notice] = "Task #{task.name} successfully moved to project #{@project.name}" unless request.xhr?
+
+    respond_to do |format|
+      format.html { redirect_to projects_path }
+      format.js do
+        render :update do |page|
+          page.visual_effect :highlight, dom_id(task), :duration => 1.5, :delay => 0.3
+        end
+      end
+    end
   end
 end
