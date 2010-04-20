@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.forgot_password  'forgot-password', :controller => 'password_resets', :action => 'new'
   map.register '/register/:activation_code', :controller => 'activations', :action => 'new'
   map.activate '/activate/:id', :controller => 'activations', :action => 'create'
+  map.resources :tags
 
   map.resource :account, :controller => "users"
   map.resources :password_resets
