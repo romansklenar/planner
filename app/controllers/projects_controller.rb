@@ -99,7 +99,7 @@ public
       format.html { redirect_to projects_path }
       format.js do
         render :update do |page|
-          page.visual_effect :highlight, dom_id(task), :duration => 1.5, :delay => 0.3
+          page.visual_effect :highlight, dom_id(task), :duration => 1.5, :delay => 0.2
         end
       end
     end
