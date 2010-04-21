@@ -1,5 +1,5 @@
 body {
-  background-color: #4B7399;
+  background-color: #DDD;
   font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Verdana, sans-serif;
   color: #333333;
   font-size: 14px;
@@ -28,12 +28,21 @@ a, a:visited {
 }
 
 #container {
-  width: 75%;
+  width: 65%;
   margin: 0 auto;
   background-color: #FFF;
   padding: 20px 40px;
-  border: solid 1px black;
+  border: solid 1px #BBB;
   margin-top: 20px;
+  
+  box-shadow: rgba(0,0,0,0.3) 0 1px 3px;
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: rgba(0,0,0,0.3) 0 1px 3px;
+
+  border-radius: 2em;
+  -moz-border-radius: 2em;
+  -khtml-border-radius: 2em;
+  -webkit-border-radius: 2em;
 }
 
 #flash_notice, #flash_error {
@@ -87,20 +96,36 @@ a, a:visited {
   font-size: 12px;
   list-style: disc;
 }
-
 #user_nav {
   float: right;
   font-size: 12px;
 }
-
-ul.tasklist li {
-  list-style-type: none;
-  margin: 0 0 0.5em;
+.fright {
+  text-align: right;
 }
-
+div.project {
+  padding: 0.2em 1.5em;
+}
+ul.tasklist {
+  padding: 0em;
+}
+ul.tasklist li.task {
+  list-style-type: none;
+  margin: 0 0 0.2em;
+  padding: 0.5em 1em;
+  background: #F8F8F8;
+  border: 1px solid #DDDDDD;
+  
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -khtml-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+ul.tasklist li.task input[type="checkbox"] {
+  visibility: none;
+}
 ul.tasklist li.task.completed {
   color: #9A9A9A;
-  opacity: 0.6;
 }
 
 li .handle {
@@ -140,14 +165,9 @@ h2 .tags {
   font-size: 0;
   z-index: 10000;
   border-radius: 5px;
-  -moz-border-radius-bottomleft: 5px;
-  -moz-border-radius-bottomright: 5px;
-  -moz-border-radius-topleft: 5px;
-  -moz-border-radius-topright: 5px;
+  -moz-border-radius: 5px;
   -khtml-border-radius: 5px;
   -webkit-border-radius: 5px;
-  -webkit-border-bottom-left-radius: 5px;
-  -webkit-border-bottom-right-radius: 5px;
 }
 
 

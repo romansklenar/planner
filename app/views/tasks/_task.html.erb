@@ -12,7 +12,7 @@
   <% end %>
 
   <% unless task.completed? or task.due_to.nil? %>
-    <span>, due in <%= distance_of_time_in_words_to_now task.due_to %></span>
+    <span>, <%= task.due_to > Time.now.to_date ? 'due in' : 'overdue'%> <%= time_ago_in_words task.due_to %></span>
   <% end %>
 
   <% if !task.completed? %>

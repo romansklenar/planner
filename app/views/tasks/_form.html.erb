@@ -8,5 +8,13 @@
     <%= f.check_box :completed %>
     <%= f.label :completed %>
   </p>
+  <p>
+    <%= f.label :due_to %><br />
+    <%= f.date_select :due_to %>
+  </p>
+  <p>
+    <%= f.label :scheduled_to %><br />
+    <%= f.date_select :scheduled_to %>
+  </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
