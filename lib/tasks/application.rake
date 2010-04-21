@@ -11,6 +11,13 @@ namespace :load do
     admin.password = admin.password_confirmation = "demo"
     admin.save
     admin.activate!
+
+    usr = User.new
+    usr.login = "user"
+    usr.email = "user@example.com"
+    usr.password = usr.password_confirmation = "demo"
+    usr.save
+    usr.activate!
   end
 
   desc "Load projects into database"
