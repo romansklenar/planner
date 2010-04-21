@@ -1,6 +1,9 @@
+<%- tags ||= project.tags_from(project.user) -%>
+
 <% content_tag_for :div, project do %>
   <h2>
     <%= link_to h(project.name), project_path(project) %>
+
     <span class="actions">
     &nbsp; &nbsp;
     <%= link_to "Edit", edit_project_path(project) %> |
@@ -10,9 +13,10 @@
     <%= link_to "iCal", project_path(project, :format => :ics) %> |
     <%= link_to "Delete", project_path(project), :confirm => "Are you sure to delete project #{h(project.name)}?", :method => 'delete' %>
     </span>
-    <span class="tags">
-      <%=h project.tags_from(project.user) %>
-    </span>
+
+    <% unless tags.empty? %>
+    <span class="tags"><%=h tags %></span>
+    <% end %>
   </h2>
 
   <%= drop_receiving_element(dom_id(project), 

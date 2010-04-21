@@ -36,7 +36,7 @@ a, a:visited {
   margin-top: 20px;
   
   box-shadow: rgba(0,0,0,0.3) 0 1px 3px;
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  /*-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);*/
   -webkit-box-shadow: rgba(0,0,0,0.3) 0 1px 3px;
 
   border-radius: 2em;
@@ -112,7 +112,7 @@ ul.tasklist {
 ul.tasklist li.task {
   list-style-type: none;
   margin: 0 0 0.2em;
-  padding: 0.5em 1em;
+  padding: 0.5em 0.5em 0.5em 0.8em;
   background: #F8F8F8;
   border: 1px solid #DDDDDD;
   
@@ -121,13 +121,12 @@ ul.tasklist li.task {
   -khtml-border-radius: 10px;
   -webkit-border-radius: 10px;
 }
-ul.tasklist li.task input[type="checkbox"] {
-  visibility: none;
+ul.tasklist li.task.completed {
+  color: #9A9A9A;
 }
 ul.tasklist li.task.completed {
   color: #9A9A9A;
 }
-
 li .handle {
   font-size: 12px;
   cursor: pointer;
@@ -141,13 +140,27 @@ hr {
   margin: 1.5em 0 1.5em 0;
 }
 
-h2 .actions {
-  font-size: 60%;
+.actions {
+  font-size: 80%;
 }
 
-h2 .tags {
-  font-size: 80%;
+.tags, .notes {
+  font-size: 90%;
   float: right;
+  border: 1px solid #BCC5D3;
+  background: #E1E9F4;
+  margin-left: 1em;
+  padding: 0.1em 0.3em;
+
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  -khtml-border-radius: 6px;
+  -webkit-border-radius: 6px;
+}
+
+.notes {
+  border: 1px solid #D3BFBC;
+  background: #F4E1E1;
 }
 
 .hover {

@@ -1,4 +1,5 @@
 <%- project ||= task.project -%>
+<%- tags ||= task.tags_from(task.project.user) -%>
 
 <% content_tag_for :li, task, :class => css_class_for_task(task) do %>
   <span class="handle">[::]</span>
@@ -11,21 +12,24 @@
     <strong><%=h task.name %></strong>
   <% end %>
 
-  <% unless task.completed? or task.due_to.nil? %>
-    <span>, <%= task.due_to > Time.now.to_date ? 'due in' : 'overdue'%> <%= time_ago_in_words task.due_to %></span>
-  <% end %>
-
   <% if !task.completed? %>
-    <span class="actions">
+  <span class="actions">
     &nbsp; &nbsp;
     <%= link_to "Edit", edit_project_task_path(project, task) %> |
     <%= link_to "Delete", project_task_path(project, task), :confirm => "Are you sure to delete task #{h(task.name)}?", :method => 'delete' %>
-    </span>
+  </span>
   <% end %>
 
-  <span class="tags">
-    <%=h task.tags_from(task.project.user) %>
+
+  <% unless task.completed? or task.due_to.nil? %>
+  <span class="notes">
+    <%= task.due_to > Time.now.to_date ? 'due in' : 'overdue'%> <%= time_ago_in_words task.due_to %>
   </span>
+  <% end %>
+
+  <% unless tags.empty? %>
+  <span class="tags"><%=h tags %></span>
+  <% end %>
 
   <%= draggable_element(dom_id(task), {:revert => true, :handle => "'handle'"}) %>
 <% end %>
