@@ -22,7 +22,7 @@ class Project < ActiveRecord::Base
   def to_calendar
     calendar = Icalendar::Calendar.new
     self.tasks.incomplete.each do |task|
-      calendar.add task.to_event
+      calendar.add task.to_ical_event
     end
     return calendar
   end

@@ -44,7 +44,7 @@ class Task < ActiveRecord::Base
   end
   
 
-  def to_event
+  def to_ical_event
     event = Icalendar::Event.new
     event.start = self.created_at.strftime("%Y%m%dT%H%M%S")
     event.start = self.scheduled_to.strftime("%Y%m%dT%H%M%S") unless self.scheduled_to.nil?
@@ -57,7 +57,7 @@ class Task < ActiveRecord::Base
     event.last_modified = self.updated_at
     event.uid = self.id
     # event.url = task_url(self)
-    return event
+    event
   end
 
   def to_param
