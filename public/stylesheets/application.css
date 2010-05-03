@@ -137,6 +137,8 @@ li .handle {
   font-size: 12px;
   cursor: pointer;
   color: #777;
+  background: transparent url('/images/grippy.png') no-repeat 50% 0;
+  padding: 0 3px;
 }
 
 hr {

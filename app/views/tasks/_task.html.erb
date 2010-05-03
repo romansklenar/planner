@@ -2,7 +2,7 @@
 <%- tags ||= task.tags_from(task.project.user) -%>
 
 <% content_tag_for :li, task, :class => css_class_for_task(task) do %>
-  <span class="handle">[::]</span>
+  <span class="handle">&nbsp;</span>
   <%= check_box_tag('completed[]', task.id, task.completed?, :id => nil, :onclick => remote_function(:url => toggle_project_task_path(project, task))) %>
   &nbsp;
   <%# button_to (task.completed?) ? "Open again" : "Complete", toggle_project_task_path(project, task) %>
