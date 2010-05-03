@@ -43,6 +43,7 @@ Rails::Initializer.run do |config|
   config.gem "icalendar", :version => '1.1.3'
   config.gem "acts_as_archive", :version => '<= 0.2.0'
   config.gem "acts_as_list"
+  config.gem "acts_as_state_machine"
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.

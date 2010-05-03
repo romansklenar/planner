@@ -11,15 +11,6 @@
 
 ActiveRecord::Schema.define(:version => 20100406205136) do
 
-  create_table "archived_projects", :id => false, :force => true do |t|
-    t.integer  "id"
-    t.string   "name"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "deleted_at"
-  end
-
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
