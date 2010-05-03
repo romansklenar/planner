@@ -23,8 +23,8 @@ class User < ActiveRecord::Base
     Tag.find :all,
       :select => 'tags.*, COUNT(*) AS count',
       :joins => [
-        "LEFT OUTER JOIN taggings ON tags.id = taggings.tag_id AND taggings.context = 'tags'",
-        "LEFT OUTER JOIN users ON taggings.tagger_id = users.id AND users.id = #{self.id}"
+        "JOIN taggings ON tags.id = taggings.tag_id AND taggings.context = 'tags'",
+        "JOIN users ON taggings.tagger_id = users.id AND users.id = #{self.id}"
       ],
       :group => "tags.id, tags.name",
       :having => "COUNT(*) > 0"
