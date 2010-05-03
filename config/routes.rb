@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.activate '/activate/:id', :controller => 'activations', :action => 'create'
   map.tags_filtering '/tags/:search', :controller => 'tags', :action => 'index', :seach => nil
 
-  map.resource :account, :controller => "users"
+  map.resource  :account, :controller => "users"
   map.resources :password_resets
   map.resources :users
   map.resources :user_sessions
@@ -23,6 +23,18 @@ ActionController::Routing::Routes.draw do |map|
                        :toggle_all => :post,
                        :recent     => :get }
   end
+
+  map.resources :tasklists, :member => { :archivate => :get, :activate => :get, :accept => :post } do |tasklists|
+    # tasklists.resource  :user
+    tasklists.resources :tags
+    tasklists.resources :tasks,
+      :has_many => :tags,
+      :member => { :toggle => :post },
+      :collection => { :sort       => :post,
+                       :toggle_all => :post,
+                       :recent     => :get }
+  end
+
 
   map.root :projects
 end

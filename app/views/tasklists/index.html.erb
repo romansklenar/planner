@@ -1,0 +1,23 @@
+<% title "Tasklists" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Description</th>
+    <th>User</th>
+  </tr>
+  <% for tasklist in @tasklists %>
+    <tr>
+      <td><%=h tasklist.name %></td>
+      <td><%=h tasklist.type %></td>
+      <td><%=h tasklist.description %></td>
+      <td><%=h tasklist.user_id %></td>
+      <td><%= link_to "Show", tasklist %></td>
+      <td><%= link_to "Edit", edit_tasklist_path(tasklist) %></td>
+      <td><%= link_to "Destroy", tasklist, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Tasklist", new_tasklist_path %></p>
