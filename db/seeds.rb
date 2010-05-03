@@ -19,12 +19,11 @@ usr.activate!
 
 
 
-
 desc "Load projects into database"
 
 Project.delete_all
 users = User.all
-tags = ['@home, php', '@home, ruby', '@school, java']
+tags = ['@home, php', '@home, ruby', '@school, java', 'rails', 'link', 'read']
 projects = ['Yardwork', 'Housework', 'Programming']
 
 projects.each do |name|
@@ -34,11 +33,13 @@ projects.each do |name|
 end
 
 
+
 desc "Load tasks into database"
 
 Task.delete_all
 projects = Project.all
 words = File.readlines("./lib/tasks/words").sort_by { rand }
 35.times do
-  Task.create!(:name => words.pop.titleize.strip, :project => projects.rand)
+  task = Task.create!(:name => words.pop.titleize.strip, :project => projects.rand)
+  task.user.tag(task, :with => tags.rand, :on => :tags) if rand*10 > 6
 end
