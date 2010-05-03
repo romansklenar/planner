@@ -24,4 +24,11 @@ class Notifier < ActionMailer::Base
     sent_on       Time.zone.now
     body          :root_url => root_url
   end
+
+  def deliver_task_assigned_information(user)
+    subject       "New task was assigned"
+    from          "ToDo Notifier <noreply@example.com>"
+    recipients    user.email
+    sent_on       Time.zone.now
+  end
 end

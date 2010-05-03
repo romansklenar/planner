@@ -57,4 +57,8 @@ class User < ActiveRecord::Base
     reset_perishable_token!
     Notifier.deliver_activation_confirmation(self)
   end
+
+  def deliver_task_assigned_information!
+    Notifier.deliver_task_assigned_information(self)
+  end
 end

@@ -1,8 +1,9 @@
 class Task < ActiveRecord::Base
-  attr_accessible :name, :completed_at, :checked_at, :due_to, :scheduled_to, :project
-  attr_protected  :completed, :checked
+  attr_accessible :name, :description, :note, :completed_at, :checked_at, :due_to,
+    :scheduled_to, :project, :tasklist, :worktype, :completed, :checked, :delegated_to
   
   belongs_to :project
+  belongs_to :delegated_user, :class_name => :user
 
   default_scope :order => 'position ASC'
   named_scope :incomplete, :conditions => { :completed => false }
@@ -39,10 +40,30 @@ class Task < ActiveRecord::Base
     state == "completed" || state == "checked"
   end
 
+  def toggle_completed!
+    completed? ? activate! : complete!
+    completed?
+  end
+
+  def toggle_checked!
+    checked? ? activate! : checked?
+    checked?
+  end
+
+  def delegated?
+    delegated_to.nil? == false
+  end
+
   def user
     project.user
   end
-  
+
+
+
+  def after_save
+    self.delegated_user.deliver_task_assigned_information! if self.delegated_to_changed?
+  end
+
 
   def to_ical_event
     event = Icalendar::Event.new
