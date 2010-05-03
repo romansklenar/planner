@@ -68,7 +68,7 @@ a, a:visited {
 
 #errorExplanation {
   width: 400px;
-  border: 2px solid #CF0000;
+  border: 2px solid #CCCCCC;
   padding: 0px;
   padding-bottom: 12px;
   margin-bottom: 20px;
@@ -79,26 +79,32 @@ a, a:visited {
   text-align: left;
   font-weight: bold;
   padding: 5px 5px 5px 15px;
-  font-size: 12px;
+  font-size: 1em;
   margin: 0px;
-  background-color: #c00;
-  color: #fff;
+  background-color: #DCDCDC;
 }
 #errorExplanation p {
   color: #333;
   margin-bottom: 0;
-  padding: 8px;
+  font-size: 0.9em;
+  padding: 5px 5px 5px 15px;
 }
 #errorExplanation ul {
-  margin: 2px 24px;
+  margin: 2px 6px;
 }
 #errorExplanation ul li {
-  font-size: 12px;
+  font-size: 0.9em;
   list-style: disc;
 }
 #user_nav {
   float: right;
   font-size: 12px;
+}
+.fleft {
+  text-align: left;
+}
+.fcenter {
+  text-align: center;
 }
 .fright {
   text-align: right;
@@ -156,6 +162,11 @@ hr {
   -moz-border-radius: 6px;
   -khtml-border-radius: 6px;
   -webkit-border-radius: 6px;
+}
+
+a.tags {
+  text-decoration: none;
+  float: none;
 }
 
 .notes {

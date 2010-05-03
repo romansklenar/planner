@@ -25,8 +25,8 @@
 <%- end -%>
 
 
-<p class="fright">
+<p class="fcenter">
 <% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
-  <%= link_to tag.name, { :controller => :tags, :action => :index, :search => tag.name }, :class => css_class %>
+  <%= link_to tag.name, { :controller => :tags, :action => :index, :search => tag.name }, :class => "tags css2" %>
 <% end %>
 </p>
