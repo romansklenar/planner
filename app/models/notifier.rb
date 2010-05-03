@@ -5,7 +5,7 @@ class Notifier < ActionMailer::Base
     subject       "Password Reset Instructions"
     from          "ToDo Notifier <noreply@example.com>"
     recipients    user.email
-    sent_on       Time.now
+    sent_on       Time.zone.now
     body          :password_reset_url => edit_password_reset_url(user.perishable_token)
   end
 
@@ -13,7 +13,7 @@ class Notifier < ActionMailer::Base
     subject       "Activation Instructions"
     from          "ToDo Notifier <noreply@example.com>"
     recipients    user.email
-    sent_on       Time.now
+    sent_on       Time.zone.now
     body          :account_activation_url => register_url(user.perishable_token)
   end
 
@@ -21,7 +21,7 @@ class Notifier < ActionMailer::Base
     subject       "Activation Completed"
     from          "ToDo Notifier <noreply@example.com>"
     recipients    user.email
-    sent_on       Time.now
+    sent_on       Time.zone.now
     body          :root_url => root_url
   end
 end

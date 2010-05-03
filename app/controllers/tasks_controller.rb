@@ -69,9 +69,9 @@ public
 
   # Toggles between completed and uncompleted states
   def toggle
-    if @task.toggle! :completed
-      flash[:notice] = (@task.completed?) ? 'Task was completed' : 'Task was opened again' unless request.xhr?
-    end
+    @task.completed? ? @task.activate! : @task.complete!
+    flash[:notice] = (@task.completed?) ? 'Task was completed' : 'Task was opened again' unless request.xhr?
+    
     respond_to do |format|
       format.html { redirect_to projects_path }
       format.js do

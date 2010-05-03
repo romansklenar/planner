@@ -50,10 +50,12 @@ ActiveRecord::Schema.define(:version => 20100503160149) do
     t.integer  "project_id"
     t.string   "name"
     t.boolean  "completed",    :default => false, :null => false
+    t.boolean  "checked",      :default => false, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
     t.datetime "completed_at"
+    t.datetime "checked_at"
     t.date     "due_to"
     t.date     "scheduled_to"
     t.string   "state"

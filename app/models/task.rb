@@ -1,8 +1,8 @@
 class Task < ActiveRecord::Base
-  attr_accessible :name, :completed, :completed_at, :due_to, :scheduled_at, :project
+  attr_accessible :name, :completed_at, :checked_at, :due_to, :scheduled_to, :project
+  attr_protected  :completed, :checked
+  
   belongs_to :project
-  acts_as_list :scope => :project
-  acts_as_taggable
 
   default_scope :order => 'position ASC'
   named_scope :incomplete, :conditions => { :completed => false }
@@ -12,15 +12,37 @@ class Task < ActiveRecord::Base
   validates_presence_of :name, :project
 
 
+  acts_as_list :scope => :project
+  acts_as_taggable
+  acts_as_state_machine :initial => :active
 
-  def completed=(value)
-    completed = value
-    self.completed_at = completed ? Time.now.utc : nil
+
+  state :active,    :enter => Proc.new { |task| task.completed_at = task.checked_at = nil; task.completed = task.checked = false }
+  state :completed, :enter => Proc.new { |task| task.completed_at = Time.zone.now; task.completed = true }
+  state :checked,   :enter => Proc.new { |task| task.checked_at = Time.zone.now; task.checked = true }
+
+
+  event :activate do
+    transitions :to => :active, :from => [:completed, :checked]
   end
+  
+  event :complete do
+    transitions :to => :completed, :from => [:active]
+  end
+
+  event :check do
+    transitions :to => :checked, :from => [:completed]
+  end
+
 
   def completed?
-    completed == true
+    state == "completed" || state == "checked"
   end
+
+  def user
+    project.user
+  end
+  
 
   def to_event
     event = Icalendar::Event.new

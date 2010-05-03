@@ -2,8 +2,9 @@ class CreateTasks < ActiveRecord::Migration
   def self.up
     create_table :tasks do |t|
       t.integer :project_id
-      t.string :name
-      t.boolean :complete, :default => false, :null => false
+      t.string  :name
+      t.boolean :completed, :default => false, :null => false
+      t.boolean :checked,   :default => false, :null => false
       t.timestamps
     end
   end
