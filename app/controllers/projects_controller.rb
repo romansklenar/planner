@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   before_filter :require_user
   before_filter :load_collection, :only => ['index', 'new', 'create']
-  before_filter :load_object,     :only => ['show', 'edit', 'update', 'destroy', 'archive', 'restore', 'accept']
+  before_filter :load_object,     :only => ['show', 'edit', 'update', 'destroy', 'archivate', 'activate', 'accept']
 
 
 private
@@ -77,14 +77,14 @@ public
     redirect_to projects_url
   end
 
-  def archive
-    @project.archive
+  def archivate
+    @project.archivate!
     flash[:notice] = "Successfully archived project."
     redirect_to projects_url
   end
 
-  def restore
-    Project.restore(params[:id].to_i)
+  def activate
+    @project.activate!
     flash[:notice] = "Successfully restored project from archive."
     redirect_to projects_url
   end

@@ -7,8 +7,11 @@
   </p>
 <% end %>
 
-
-<%= render :partial => "project", :collection => @projects %>
+<%- if @projects.empty? -%>
+  No active projects.
+<%- else -%>
+  <%= render :partial => "project", :collection => @projects %>
+<%- end -%>
 
 <p><%= link_to "New Project", new_project_path %></p>
 

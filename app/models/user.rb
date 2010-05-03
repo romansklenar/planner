@@ -2,8 +2,15 @@ class User < ActiveRecord::Base
   attr_accessible :login, :email, :password, :password_confirmation
   attr_reader :projects, :archived_projects, :tasks
 
-  has_many :projects
-  has_many :archived_projects, :class_name => 'Project::Archive'
+  has_many :projects,
+           :order => 'projects.created_at ASC',
+           :conditions => [ 'state = ?', 'active' ]
+
+  has_many :archived_projects,
+           :class_name => 'Project',
+           :order => 'projects.created_at ASC',
+           :conditions => [ 'state = ?', 'archived' ]
+
   has_many :tasks, :through => :projects
 
   acts_as_authentic

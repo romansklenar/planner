@@ -3,16 +3,20 @@ class Project < ActiveRecord::Base
 
   belongs_to :user
   has_many :tasks, :order => "position"
-  
-  acts_as_state_machine
+
   acts_as_taggable
-  
-  def archive
-    # todo: implement
+
+  acts_as_state_machine :initial => :active
+
+  state :active
+  state :archived
+
+  event :activate do
+    transitions :to => :active, :from => [:archived]
   end
 
-  def self.restore(id)
-    # todo: implement
+  event :archivate do
+    transitions :to => :archived, :from => [:active]
   end
 
   def to_calendar

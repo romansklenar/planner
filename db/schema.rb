@@ -9,13 +9,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100406205136) do
+ActiveRecord::Schema.define(:version => 20100503160149) do
 
   create_table "projects", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "state"
   end
 
   create_table "sessions", :force => true do |t|
@@ -55,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20100406205136) do
     t.datetime "completed_at"
     t.date     "due_to"
     t.date     "scheduled_to"
+    t.string   "state"
   end
 
   create_table "users", :force => true do |t|

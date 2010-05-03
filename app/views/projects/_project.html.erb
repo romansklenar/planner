@@ -7,8 +7,8 @@
     <span class="actions">
     &nbsp; &nbsp;
     <%= link_to "Edit", edit_project_path(project) %> |
-    <%= link_to_unless project.archived?, "Archive", archive_project_path(project) do
-        link_to "Restore", restore_project_path(project)
+    <%= link_to_unless project.archived?, "Archive", archivate_project_path(project) do
+        link_to "Activate", activate_project_path(project)
     end -%> |
     <%= link_to "iCal", project_path(project, :format => :ics) %> |
     <%= link_to "Delete", project_path(project), :confirm => "Are you sure to delete project #{h(project.name)}?", :method => 'delete' %>

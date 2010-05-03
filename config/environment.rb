@@ -41,7 +41,6 @@ Rails::Initializer.run do |config|
   config.gem "formtastic", :version => '0.9.7'
   config.gem "acts-as-taggable-on", :version => '>= 2.0.0'
   config.gem "icalendar", :version => '1.1.3'
-  config.gem "acts_as_archive", :version => '<= 0.2.0'
   config.gem "acts_as_list"
   config.gem "acts_as_state_machine"
 
