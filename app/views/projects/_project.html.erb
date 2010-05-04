@@ -19,6 +19,7 @@
     <% end %>
   </h2>
 
+  <%- unless project.archived? -%>
   <%= drop_receiving_element(dom_id(project), 
     :accept => "task",
     :hoverclass => "hover",
@@ -31,6 +32,7 @@
         new Ajax.Request('#{accept_project_path(project)}', {asynchronous:true, evalScripts:true, parameters:'draggable_element=' + (draggable.id)});
     }" # kdyby selhávaly požadavky, tak je třeba přenášet i param authenticity_token
   ) %>
+  <%- end -%>
 
   <%- unless project.tasks.empty? -%>
   <ul id="<%= dom_id(project) %>_tasklist" class="tasklist">
