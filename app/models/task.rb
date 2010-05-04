@@ -72,7 +72,7 @@ class Task < ActiveRecord::Base
 
 
   def after_save
-    deliver_task_assigned_information! if self.delegated_user_id_changed?
+    deliver_task_assigned_information! if self.changed.include?('delegated_user_id')
   end
 
 
