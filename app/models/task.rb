@@ -67,14 +67,14 @@ class Task < ActiveRecord::Base
 
 
   def self.create_from_bug(bug)
-    bug.actual_worker = bug.proposed_worker if bug.actual_worker.nil?
+    bug.actual_user = bug.proposed_user if bug.actual_user.nil?
     task = create(
         :name => bug.name,
         :description => bug.description,
         :note => bug.note,
         # :worktype => Worktype.bug,
-        :delegated_user => bug.actual_worker,
-        :tasklist => bug.actual_worker.inbox_list
+        :delegated_user => bug.actual_user,
+        :tasklist => bug.actual_user.inbox_list
     )
     bug.task = task
     bug.save

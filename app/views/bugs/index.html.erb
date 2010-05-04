@@ -18,14 +18,14 @@
   <% for bug in @bugs %>
     <tr>
       <td><%=h bug.name %></td>
-      <td><%=h bug.actual_worker_id %></td>
+      <td><%=h bug.actual_user_id %></td>
       <td><%=h bug.approved %></td>
       <td><%=h bug.approved_at %></td>
       <td><%=h bug.closed %></td>
       <td><%=h bug.closed_at %></td>
       <td><%=h bug.description %></td>
       <td><%=h bug.note %></td>
-      <td><%=h bug.proposed_worker_id %></td>
+      <td><%=h bug.proposed_user_id %></td>
       <td><%=h bug.reported_by %></td>
       <td><%=h bug.task_id %></td>
       <td><%=h bug.position %></td>

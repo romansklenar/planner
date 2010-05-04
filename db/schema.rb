@@ -13,14 +13,14 @@ ActiveRecord::Schema.define(:version => 20100504123744) do
 
   create_table "bugs", :force => true do |t|
     t.string   "name"
-    t.integer  "actual_worker_id"
+    t.integer  "actual_user_id"
     t.boolean  "approved"
     t.datetime "approved_at"
     t.boolean  "closed"
     t.boolean  "closed_at"
     t.text     "description"
     t.text     "note"
-    t.integer  "proposed_worker_id"
+    t.integer  "proposed_user_id"
     t.string   "reported_by"
     t.integer  "task_id"
     t.integer  "position"

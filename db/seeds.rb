@@ -52,5 +52,5 @@ Bug.delete_all
 users = User.all
 bugs = ['Bug #1', 'Bug #2', 'Bug #3']
 bugs.each do |name|
-  Bug.create(:name => name, :reported_by => "John Doe", :proposed_worker => users.rand)
+  Bug.create(:name => name, :reported_by => "John Doe", :proposed_user => users.rand)
 end
