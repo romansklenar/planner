@@ -39,5 +39,6 @@ words = File.readlines("./lib/tasks/words").sort_by { rand }
   project = projects.rand
   tasklist = project.user.tasklists.rand
   task = Task.create(:name => words.pop.titleize.strip, :project => project, :tasklist => tasklist)
+  task.complete! if rand*10 > 8
   task.user.tag(task, :with => tags.rand, :on => :tags) if rand*10 > 6
 end

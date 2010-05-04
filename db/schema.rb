@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(:version => 20100504123744) do
   end
 
   create_table "tasklists", :force => true do |t|
-    t.string   "name"
+    t.string   "name",                               :null => false
     t.integer  "user_id",                            :null => false
     t.string   "kind",         :default => "P",      :null => false
     t.string   "state",        :default => "active", :null => false

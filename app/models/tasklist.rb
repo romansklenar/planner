@@ -4,6 +4,8 @@ class Tasklist < ActiveRecord::Base
   belongs_to :user
   has_many :tasks, :order => "position"
 
+  validates_inclusion_of :kind, :in => %w(I N S P), :message => "{{value}} is not a valid tasklist type"
+
 
   def to_calendar
     calendar = Icalendar::Calendar.new
