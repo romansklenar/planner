@@ -12,6 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :user_sessions
   map.resources :tasks, :only => [:show], :collection => { :recent => :get }
   map.resources :tags, :except => [:index, :show]
+  map.resources :bugs
 
   map.resources :projects, :member => { :archivate => :get, :activate => :get, :accept => :post } do |projects|
     # projects.resource  :user

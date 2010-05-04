@@ -1,0 +1,52 @@
+<% form_for @bug do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :actual_worker %><br />
+    <%= f.text_field :actual_worker %>
+  </p>
+  <p>
+    <%= f.label :approved %><br />
+    <%= f.check_box :approved %>
+  </p>
+  <p>
+    <%= f.label :approved_at %><br />
+    <%= f.datetime_select :approved_at %>
+  </p>
+  <p>
+    <%= f.label :closed %><br />
+    <%= f.check_box :closed %>
+  </p>
+  <p>
+    <%= f.label :closed_at %><br />
+    <%= f.check_box :closed_at %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </p>
+  <p>
+    <%= f.label :proposed_worker %><br />
+    <%= f.text_field :proposed_worker %>
+  </p>
+  <p>
+    <%= f.label :reported_by %><br />
+    <%= f.text_field :reported_by %>
+  </p>
+  <p>
+    <%= f.label :task_id %><br />
+    <%= f.text_field :task_id %>
+  </p>
+  <p>
+    <%= f.label :position %><br />
+    <%= f.text_field :position %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>

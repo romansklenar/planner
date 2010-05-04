@@ -9,7 +9,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100503233817) do
+ActiveRecord::Schema.define(:version => 20100504123744) do
+
+  create_table "bugs", :force => true do |t|
+    t.string   "name"
+    t.integer  "actual_worker"
+    t.boolean  "approved"
+    t.datetime "approved_at"
+    t.boolean  "closed"
+    t.boolean  "closed_at"
+    t.text     "description"
+    t.text     "note"
+    t.integer  "proposed_worker"
+    t.string   "reported_by"
+    t.integer  "task_id"
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "projects", :force => true do |t|
     t.string   "name",       :null => false

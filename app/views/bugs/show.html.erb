@@ -1,0 +1,56 @@
+<% title "Bug" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @bug.name %>
+</p>
+<p>
+  <strong>Actual Worker:</strong>
+  <%=h @bug.actual_worker %>
+</p>
+<p>
+  <strong>Approved:</strong>
+  <%=h @bug.approved %>
+</p>
+<p>
+  <strong>Approved At:</strong>
+  <%=h @bug.approved_at %>
+</p>
+<p>
+  <strong>Closed:</strong>
+  <%=h @bug.closed %>
+</p>
+<p>
+  <strong>Closed At:</strong>
+  <%=h @bug.closed_at %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%=h @bug.description %>
+</p>
+<p>
+  <strong>Note:</strong>
+  <%=h @bug.note %>
+</p>
+<p>
+  <strong>Proposed Worker:</strong>
+  <%=h @bug.proposed_worker %>
+</p>
+<p>
+  <strong>Reported By:</strong>
+  <%=h @bug.reported_by %>
+</p>
+<p>
+  <strong>Task:</strong>
+  <%=h @bug.task_id %>
+</p>
+<p>
+  <strong>Position:</strong>
+  <%=h @bug.position %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_bug_path(@bug) %> |
+  <%= link_to "Destroy", @bug, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", bugs_path %>
+</p>
