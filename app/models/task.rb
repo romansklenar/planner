@@ -23,13 +23,23 @@ class Task < ActiveRecord::Base
   acts_as_state_machine :initial => :active
 
 
-  state :active,    :enter => Proc.new { |task| task.completed_at = task.checked_at = nil; task.completed = task.checked = false }
-  state :completed, :enter => Proc.new { |task| task.completed_at = Time.zone.now; task.completed = true }
-  state :checked,   :enter => Proc.new { |task| task.checked_at = Time.zone.now; task.checked = true }
+  state :active, :enter => Proc.new { |task|
+    task.completed_at = task.checked_at = nil
+    task.completed = task.checked = false
+  }
+  state :completed, :enter => Proc.new { |task|
+    task.completed_at = Time.zone.now
+    task.completed = true
+  }
+  state :checked, :enter => Proc.new { |task|
+    task.checked_at = Time.zone.now
+    task.checked = true
+    task.bug.close! unless task.bug.nil?
+  }
 
 
   event :activate do
-    transitions :to => :active, :from => [:completed, :checked]
+    transitions :to => :active, :from => [:completed]
   end
   
   event :complete do
@@ -67,6 +77,7 @@ class Task < ActiveRecord::Base
 
 
   def self.create_from_bug(bug)
+    raise ArgumentError, "Cannot generate task, resolver of bug was not defined" if bug.proposed_user.nil? && bug.actual_user.nil?
     bug.actual_user = bug.proposed_user if bug.actual_user.nil?
     task = create(
         :name => bug.name,

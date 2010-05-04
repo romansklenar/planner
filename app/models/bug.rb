@@ -8,21 +8,18 @@ class Bug < ActiveRecord::Base
 
   acts_as_state_machine :initial => :active
 
+
   state :active, :enter => Proc.new { |bug|
       bug.approved_at = bug.closed_at = bug.actual_user_id = nil
       bug.approved = bug.closed = false
   }
-
   state :approved, :enter => Proc.new { |bug|
     bug.approved_at = Time.zone.now
     bug.approved = true
   }
-
-  state :delegated, :enter => Proc.new { |bug|
-    raise ArgumentError, "Cannot delegate bug, no proposed user defined" if bug.proposed_user.nil?
+  state :assigned, :enter => Proc.new { |bug|
     Task.create_from_bug(bug) if bug.task.nil?
   }
-
   state :closed, :enter => Proc.new { |bug|
     bug.closed_at = Time.zone.now
     bug.closed = true
@@ -34,15 +31,15 @@ class Bug < ActiveRecord::Base
   end
 
   event :approve do
-    transitions :to => :approved, :from => [:active, :closed]
+    transitions :to => :approved, :from => [:active]
   end
 
-  event :delegate do
-    transitions :to => :delegated, :from => [:active, :closed]
+  event :assign do
+    transitions :to => :assigned, :from => [:approved]
   end
 
   event :close do
-    transitions :to => :closed, :from => [:approved, :activate]
+    transitions :to => :closed, :from => [:assigned, :active]
   end
 
 end
