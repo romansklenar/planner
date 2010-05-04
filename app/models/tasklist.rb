@@ -2,7 +2,7 @@ class Tasklist < ActiveRecord::Base
   default_scope :conditions => [ 'kind IN (?)', ['I','N','S'] ]
 
   belongs_to :user
-  has_many :tasks, :order => "position"
+  has_many   :tasks, :order => "position"
 
   validates_inclusion_of :kind, :in => %w(I N S P), :message => "{{value}} is not a valid tasklist type"
 

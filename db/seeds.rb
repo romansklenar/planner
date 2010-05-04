@@ -33,6 +33,7 @@ end
 desc "Load tasks into database"
 
 Task.delete_all
+users = User.all
 projects = Project.all
 words = File.readlines("./lib/tasks/words").sort_by { rand }
 35.times do
@@ -41,4 +42,15 @@ words = File.readlines("./lib/tasks/words").sort_by { rand }
   task = Task.create(:name => words.pop.titleize.strip, :project => project, :tasklist => tasklist)
   task.complete! if rand*10 > 8
   task.user.tag(task, :with => tags.rand, :on => :tags) if rand*10 > 6
+end
+
+
+
+desc "Load bugs into database"
+
+Bug.delete_all
+users = User.all
+bugs = ['Bug #1', 'Bug #2', 'Bug #3']
+bugs.each do |name|
+  Bug.create(:name => name, :reported_by => "John Doe", :proposed_worker => users.rand)
 end

@@ -4,7 +4,9 @@ class Task < ActiveRecord::Base
   
   belongs_to :project
   belongs_to :tasklist
-  belongs_to :delegated_user, :class_name => :user
+  has_one    :user, :through => :tasklist
+  belongs_to :delegated_user, :class_name => "User"
+
 
   default_scope :order => 'position ASC'
   named_scope :incomplete, :conditions => { :completed => false }
@@ -57,14 +59,26 @@ class Task < ActiveRecord::Base
     delegated_to.nil? == false
   end
 
-  def user
-    project.user
-  end
-
 
 
   def after_save
     self.delegated_user.deliver_task_assigned_information! if self.delegated_to_changed?
+  end
+
+
+  def self.create_from_bug(bug)
+    bug.actual_worker = bug.proposed_worker if bug.actual_worker.nil?
+    task = create(
+        :name => bug.name,
+        :description => bug.description,
+        :note => bug.note,
+        # :worktype => Worktype.bug,
+        :delegated_user => bug.actual_worker,
+        :tasklist => bug.actual_worker.inbox_list
+    )
+    bug.task = task
+    bug.save
+    task
   end
 
 

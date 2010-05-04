@@ -2,7 +2,7 @@ class Project < Tasklist
   default_scope :conditions => [ 'kind = ?', 'P' ]
 
   belongs_to :user
-  has_many :tasks, :order => "position"
+  has_many   :tasks, :order => "position"
 
   acts_as_taggable
 

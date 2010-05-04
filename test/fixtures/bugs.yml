@@ -1,27 +1,27 @@
 one:
   name: MyString
-  actual_worker: 1
+  actual_worker_id: 1
   approved: false
   approved_at: 2010-05-04 14:37:44
   closed: false
   closed_at: false
   description: MyText
   note: MyText
-  proposed_worker: 1
+  proposed_worker_id: 1
   reported_by: MyString
   task_id: 1
   position: 1
 
 two:
   name: MyString
-  actual_worker: 1
+  actual_worker_id: 1
   approved: false
   approved_at: 2010-05-04 14:37:44
   closed: false
   closed_at: false
   description: MyText
   note: MyText
-  proposed_worker: 1
+  proposed_worker_id: 1
   reported_by: MyString
   task_id: 1
   position: 1
