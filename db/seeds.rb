@@ -1,21 +1,18 @@
-# application seed file
+# This file should contain all the record creation needed to seed the database with its default values.
+# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 
 desc "Load users into database"
 
 User.delete_all
-admin = User.new
-admin.login = "admin"
-admin.email = "admin@example.com"
-admin.password = admin.password_confirmation = "demo"
-admin.save
-admin.activate!
-
-usr = User.new
-usr.login = "user"
-usr.email = "user@example.com"
-usr.password = usr.password_confirmation = "demo"
-usr.save
-usr.activate!
+logins = ['admin', 'user']
+logins.each do |name|
+  usr = User.new
+  usr.login = name
+  usr.email = "#{name}@example.com"
+  usr.password = usr.password_confirmation = "demo"
+  usr.save
+  usr.activate!
+end
 
 
 
@@ -27,9 +24,8 @@ tags = ['@home, php', '@home, ruby', '@school, java', 'rails', 'link', 'read']
 projects = ['Yardwork', 'Housework', 'Programming']
 
 projects.each do |name|
-  user = users.rand
-  project = Project.create!(:name => name, :user => user)
-  user.tag(project, :with => tags.rand, :on => :tags)
+  project = Project.create(:name => name, :user => users.rand)
+  project.user.tag(project, :with => tags.rand, :on => :tags) if rand*10 > 4
 end
 
 
@@ -40,6 +36,8 @@ Task.delete_all
 projects = Project.all
 words = File.readlines("./lib/tasks/words").sort_by { rand }
 35.times do
-  task = Task.create!(:name => words.pop.titleize.strip, :project => projects.rand)
+  project = projects.rand
+  tasklist = project.user.tasklists.rand
+  task = Task.create(:name => words.pop.titleize.strip, :project => project, :tasklist => tasklist)
   task.user.tag(task, :with => tags.rand, :on => :tags) if rand*10 > 6
 end
