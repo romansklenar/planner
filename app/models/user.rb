@@ -3,15 +3,32 @@ class User < ActiveRecord::Base
   attr_reader :projects, :archived_projects, :tasks
 
   has_many :projects,
-           :order => 'projects.created_at ASC',
+           :order => 'tasklists.created_at ASC',
            :conditions => [ 'state = ?', 'active' ]
 
   has_many :archived_projects,
            :class_name => 'Project',
-           :order => 'projects.created_at ASC',
+           :order => 'tasklists.created_at ASC',
            :conditions => [ 'state = ?', 'archived' ]
 
-  has_many :tasks, :through => :projects
+  has_many :tasklists
+
+  has_one  :inbox_list,
+           :class_name => 'Tasklist',
+           :conditions => [ 'kind = ?', 'I' ]
+
+  has_one  :next_actions_list,
+           :class_name => 'Tasklist',
+           :conditions => [ 'kind = ?', 'N' ]
+
+  has_one  :someday_list,
+           :class_name => 'Tasklist',
+           :conditions => [ 'kind = ?', 'S' ]
+
+  has_many :tasks,
+            :through => :tasklists,
+            :conditions => [ 'kind IN (?)', ['I','N','S', 'P'] ]
+
 
   acts_as_authentic
   acts_as_tagger
@@ -37,11 +54,19 @@ class User < ActiveRecord::Base
       :having => "COUNT(*) > 0"
   end
 
+
+  def after_create
+    create_inbox_list
+    create_next_actions_list
+    create_someday_list
+  end
+
   def after_destroy
     if User.count.zero?
       raise "Can't delete last user"
     end
   end
+
 
   def deliver_password_reset_instructions!
     reset_perishable_token!
@@ -60,5 +85,20 @@ class User < ActiveRecord::Base
 
   def deliver_task_assigned_information!
     Notifier.deliver_task_assigned_information(self)
+  end
+
+
+  private
+
+  def create_inbox_list
+    Tasklist.create(:name => "Inbox", :kind => "I", :user => self)
+  end
+
+  def create_next_actions_list
+    Tasklist.create(:name => "Next Actions", :kind => "N", :user => self)
+  end
+
+  def create_someday_list
+    Tasklist.create(:name => "Someday", :kind => "S", :user => self)
   end
 end

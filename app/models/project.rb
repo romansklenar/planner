@@ -1,5 +1,5 @@
-class Project < ActiveRecord::Base
-  attr_accessible :name, :user
+class Project < Tasklist
+  default_scope :conditions => [ 'kind = ?', 'P' ]
 
   belongs_to :user
   has_many :tasks, :order => "position"
@@ -17,17 +17,5 @@ class Project < ActiveRecord::Base
 
   event :archivate do
     transitions :to => :archived, :from => [:active]
-  end
-
-  def to_calendar
-    calendar = Icalendar::Calendar.new
-    self.tasks.incomplete.each do |task|
-      calendar.add task.to_ical_event
-    end
-    return calendar
-  end
-
-  def to_param
-    "#{id}-#{name.parameterize}"
   end
 end

@@ -9,11 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100503222208) do
+ActiveRecord::Schema.define(:version => 20100503233817) do
 
   create_table "projects", :force => true do |t|
-    t.string   "name"
-    t.integer  "user_id"
+    t.string   "name",       :null => false
+    t.integer  "user_id",    :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "state"
@@ -43,8 +43,27 @@ ActiveRecord::Schema.define(:version => 20100503222208) do
   add_index "taggings", ["taggable_id", "taggable_type", "context"], :name => "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", :force => true do |t|
-    t.string "name"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  create_table "tasklists", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id",                            :null => false
+    t.string   "kind",         :default => "P",      :null => false
+    t.string   "state",        :default => "active", :null => false
+    t.text     "description"
+    t.text     "note"
+    t.float    "budget_hours"
+    t.integer  "grant_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tasklists", ["grant_id"], :name => "index_tasklists_on_grant_id"
+  add_index "tasklists", ["kind"], :name => "index_tasklists_on_kind"
+  add_index "tasklists", ["user_id"], :name => "index_tasklists_on_user_id"
 
   create_table "tasks", :force => true do |t|
     t.integer  "project_id"
@@ -60,11 +79,15 @@ ActiveRecord::Schema.define(:version => 20100503222208) do
     t.date     "scheduled_to"
     t.string   "state"
     t.integer  "delegated_to"
-    t.string   "description"
-    t.string   "note"
+    t.text     "description"
+    t.text     "note"
     t.integer  "tasklist_id"
     t.integer  "worktype_id"
   end
+
+  add_index "tasks", ["position"], :name => "index_tasks_on_position"
+  add_index "tasks", ["project_id"], :name => "index_tasks_on_project_id"
+  add_index "tasks", ["tasklist_id"], :name => "index_tasks_on_tasklist_id"
 
   create_table "users", :force => true do |t|
     t.string   "login",                                  :null => false

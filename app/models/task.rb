@@ -3,6 +3,7 @@ class Task < ActiveRecord::Base
     :scheduled_to, :project, :tasklist, :worktype, :completed, :checked, :delegated_to
   
   belongs_to :project
+  belongs_to :tasklist
   belongs_to :delegated_user, :class_name => :user
 
   default_scope :order => 'position ASC'
