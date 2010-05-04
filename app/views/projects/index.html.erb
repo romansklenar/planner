@@ -20,11 +20,7 @@
   <hr />
   
   <h2>Archived projects</h2>
-
-  <table>
-    <tr><th>Name</th></tr>
-    <%= render :partial => "project", :collection => @archived_projects %>
-  </table>
+  <%= render :partial => "project", :collection => @archived_projects %>
 <%- end -%>
 
 
