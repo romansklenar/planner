@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
-  attr_accessible :login, :email, :password, :password_confirmation
-  attr_reader :projects, :archived_projects, :tasks
+  #attr_accessible :login, :email, :password, :password_confirmation
+  #attr_reader :projects, :archived_projects, :tasks
 
   has_many :projects,
            :order => 'tasklists.created_at ASC',
@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
         "JOIN taggings ON tags.id = taggings.tag_id AND taggings.context = 'tags'",
         "JOIN users ON taggings.tagger_id = users.id AND users.id = #{self.id}"
       ],
-      :group => "tags.id, tags.name",
+      :group => "tags.id, tags.name, tags.created_at, tags.updated_at",
       :having => "COUNT(*) > 0"
   end
 

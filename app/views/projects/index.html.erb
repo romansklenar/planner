@@ -23,9 +23,3 @@
   <%= render :partial => "project", :collection => @archived_projects %>
 <%- end -%>
 
-
-<p class="fcenter">
-<% tag_cloud(@tags, %w(css1 css2 css3 css4)) do |tag, css_class| %>
-  <%= link_to tag.name, { :controller => :tags, :action => :index, :search => tag.name }, :class => "tags css2" %>
-<% end %>
-</p>

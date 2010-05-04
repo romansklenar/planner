@@ -1,6 +1,6 @@
 class Bug < ActiveRecord::Base
-  attr_accessible :name, :approved, :approved_at, :closed, :closed_at, :description, :note,
-                  :reported_by, :task_id, :position, :actual_user, :proposed_user
+  #attr_accessible :name, :approved, :approved_at, :closed, :closed_at, :description, :note,
+  #                :reported_by, :task_id, :position, :actual_user, :proposed_user
 
   belongs_to :actual_user,   :class_name => "User"
   belongs_to :proposed_user, :class_name => "User"

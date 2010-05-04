@@ -1,6 +1,6 @@
 class Task < ActiveRecord::Base
-  attr_accessible :name, :description, :note, :completed_at, :checked_at, :due_to,
-    :scheduled_to, :project, :tasklist, :worktype, :completed, :checked, :delegated_user
+  #attr_accessible :name, :description, :note, :completed_at, :checked_at, :due_to,
+  #  :scheduled_to, :project, :tasklist, :worktype, :completed, :checked, :delegated_user
   
   belongs_to :project
   belongs_to :tasklist
