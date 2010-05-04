@@ -83,10 +83,6 @@ class User < ActiveRecord::Base
     Notifier.deliver_activation_confirmation(self)
   end
 
-  def deliver_task_assigned_information!
-    Notifier.deliver_task_assigned_information(self)
-  end
-
 
   private
 

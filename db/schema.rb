@@ -96,7 +96,7 @@ ActiveRecord::Schema.define(:version => 20100504123744) do
     t.date     "due_to"
     t.date     "scheduled_to"
     t.string   "state"
-    t.integer  "delegated_to"
+    t.integer  "delegated_user_id"
     t.text     "description"
     t.text     "note"
     t.integer  "tasklist_id"

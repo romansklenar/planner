@@ -1,6 +1,6 @@
 class Task < ActiveRecord::Base
   attr_accessible :name, :description, :note, :completed_at, :checked_at, :due_to,
-    :scheduled_to, :project, :tasklist, :worktype, :completed, :checked, :delegated_to
+    :scheduled_to, :project, :tasklist, :worktype, :completed, :checked, :delegated_user
   
   belongs_to :project
   belongs_to :tasklist
@@ -56,13 +56,13 @@ class Task < ActiveRecord::Base
   end
 
   def delegated?
-    delegated_to.nil? == false
+    delegated_user.nil? == false
   end
 
 
 
   def after_save
-    self.delegated_user.deliver_task_assigned_information! if self.delegated_to_changed?
+    deliver_task_assigned_information! if self.delegated_user_id_changed?
   end
 
 
@@ -101,4 +101,12 @@ class Task < ActiveRecord::Base
   def to_param
     "#{id}-#{name.parameterize}"
   end
+
+
+  private
+
+  def deliver_task_assigned_information!
+    Notifier.task_assigned_information(self, self.delegated_user)
+  end
+
 end
