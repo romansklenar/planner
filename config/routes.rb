@@ -15,6 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :bugs
   map.resources :worktypes
   map.resources :grants
+  map.resources :timesheets
 
   map.resources :projects, :member => { :archivate => :get, :activate => :get, :accept => :post } do |projects|
     # projects.resource  :user

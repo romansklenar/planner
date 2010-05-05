@@ -1,0 +1,25 @@
+<% title "Timesheets" %>
+
+<table>
+  <tr>
+    <th>Task</th>
+    <th>User</th>
+    <th>Started At</th>
+    <th>Finished At</th>
+    <th>Note</th>
+  </tr>
+  <% for timesheet in @timesheets %>
+    <tr>
+      <td><%=h timesheet.task_id %></td>
+      <td><%=h timesheet.user_id %></td>
+      <td><%=h timesheet.started_at %></td>
+      <td><%=h timesheet.finished_at %></td>
+      <td><%=h timesheet.note %></td>
+      <td><%= link_to "Show", timesheet %></td>
+      <td><%= link_to "Edit", edit_timesheet_path(timesheet) %></td>
+      <td><%= link_to "Destroy", timesheet, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Timesheet", new_timesheet_path %></p>

@@ -1,0 +1,28 @@
+<% title "Timesheet" %>
+
+<p>
+  <strong>Task:</strong>
+  <%=h @timesheet.task_id %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%=h @timesheet.user_id %>
+</p>
+<p>
+  <strong>Started At:</strong>
+  <%=h @timesheet.started_at %>
+</p>
+<p>
+  <strong>Finished At:</strong>
+  <%=h @timesheet.finished_at %>
+</p>
+<p>
+  <strong>Note:</strong>
+  <%=h @timesheet.note %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_timesheet_path(@timesheet) %> |
+  <%= link_to "Destroy", @timesheet, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", timesheets_path %>
+</p>
