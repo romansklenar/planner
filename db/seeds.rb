@@ -66,3 +66,15 @@ works.each do |name, price|
   work = Worktype.create(:name => name, :price_per_hour => price)
   tasks.rand.worktype = work
 end
+
+
+
+desc "Load grants into database"
+
+Grant.delete_all
+tasklist = Tasklist.all
+grants = {'CESNET' => 25000.00, 'Virtlab' => 15000.00, 'kat454' => 10000.00, 'CPIT' => 5000.00}
+grants.each do |name, budget|
+  grant = Grant.create(:name => name, :budget => budget)
+  tasklist.rand.grant = grant
+end

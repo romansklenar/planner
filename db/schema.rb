@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100505020241) do
+ActiveRecord::Schema.define(:version => 20100505024053) do
 
   create_table "bugs", :force => true do |t|
     t.string   "name"
@@ -25,6 +25,13 @@ ActiveRecord::Schema.define(:version => 20100505020241) do
     t.integer  "task_id"
     t.integer  "position"
     t.string   "state"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "grants", :force => true do |t|
+    t.string   "name"
+    t.decimal  "budget",     :precision => 8, :scale => 2, :default => 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -134,7 +141,7 @@ ActiveRecord::Schema.define(:version => 20100505020241) do
 
   create_table "worktypes", :force => true do |t|
     t.string   "name"
-    t.float    "price_per_hour"
+    t.decimal  "price_per_hour", :precision => 8, :scale => 2, :default => 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
