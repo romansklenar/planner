@@ -1,0 +1,12 @@
+<% form_for @worktype do |f| %>
+  <%= f.error_messages %>
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :price_per_hour %><br />
+    <%= f.text_field :price_per_hour %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>

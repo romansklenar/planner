@@ -1,0 +1,19 @@
+<% title "Worktypes" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Price Per Hour</th>
+  </tr>
+  <% for worktype in @worktypes %>
+    <tr>
+      <td><%=h worktype.name %></td>
+      <td><%=h worktype.price_per_hour %></td>
+      <td><%= link_to "Show", worktype %></td>
+      <td><%= link_to "Edit", edit_worktype_path(worktype) %></td>
+      <td><%= link_to "Destroy", worktype, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Worktype", new_worktype_path %></p>

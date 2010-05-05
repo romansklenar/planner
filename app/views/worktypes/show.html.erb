@@ -1,0 +1,16 @@
+<% title "Worktype" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @worktype.name %>
+</p>
+<p>
+  <strong>Price Per Hour:</strong>
+  <%=h @worktype.price_per_hour %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_worktype_path(@worktype) %> |
+  <%= link_to "Destroy", @worktype, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", worktypes_path %>
+</p>
