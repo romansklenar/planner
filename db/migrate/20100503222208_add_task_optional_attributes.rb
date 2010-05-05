@@ -5,6 +5,7 @@ class AddTaskOptionalAttributes < ActiveRecord::Migration
     add_column :tasks, :note, :text
     add_column :tasks, :tasklist_id, :integer
     add_column :tasks, :worktype_id, :integer
+    add_column :tasks, :priority, :integer, :null => false, :default => 1
 
     add_index :tasks, :tasklist_id
     add_index :tasks, :project_id

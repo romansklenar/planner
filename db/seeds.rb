@@ -21,7 +21,7 @@ desc "Load projects into database"
 Project.delete_all
 users = User.all
 tags = ['@home, php', '@home, ruby', '@school, java', 'rails', 'link', 'read']
-projects = ['Yardwork', 'Housework', 'Programming']
+projects = ['Painting', 'Yardwork', 'Housework', 'Programming']
 
 projects.each do |name|
   project = Project.create(:name => name, :user => users.rand)
@@ -71,10 +71,9 @@ end
 
 desc "Load grants into database"
 
-Grant.delete_all
-tasklist = Tasklist.all
+tasklists = Tasklist.all
 grants = {'CESNET' => 25000.00, 'Virtlab' => 15000.00, 'kat454' => 10000.00, 'CPIT' => 5000.00}
 grants.each do |name, budget|
-  grant = Grant.create(:name => name, :budget => budget)
-  tasklist.rand.grant = grant
+  grant = Grant.find_or_create_by_name(name, :budget => budget)
+  tasklists.rand.grant = grant
 end

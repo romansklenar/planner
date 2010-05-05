@@ -8,6 +8,7 @@ class AddTaskDateAttributes < ActiveRecord::Migration
 
   def self.down
     remove_column :tasks, :completed_at
+    remove_column :tasks, :checked_at
     remove_column :tasks, :due_to
     remove_column :tasks, :scheduled_to
   end

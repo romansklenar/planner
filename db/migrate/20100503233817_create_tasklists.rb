@@ -8,20 +8,18 @@ class CreateTasklists < ActiveRecord::Migration
       t.text :description
       t.text :note
       t.float :budget_hours
-      t.integer :grant_id # :null => false
+      t.integer :grant_id
       t.timestamps
     end
 
     add_index :tasklists, :kind
     add_index :tasklists, :user_id
-    add_index :tasklists, :grant_id
   end
   
-  def self.down
-    drop_table :tasklists
-    
+  def self.down    
     remove_index :tasklists, :kind
     remove_index :tasklists, :user_id
-    remove_index :tasklists, :grant_id
+    
+    drop_table :tasklists
   end
 end

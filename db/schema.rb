@@ -9,19 +9,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100505030326) do
+ActiveRecord::Schema.define(:version => 20100505041925) do
 
   create_table "bugs", :force => true do |t|
-    t.string   "name"
+    t.string   "name",                                :null => false
     t.integer  "actual_user_id"
-    t.boolean  "approved"
+    t.boolean  "approved",         :default => false, :null => false
     t.datetime "approved_at"
-    t.boolean  "closed"
+    t.boolean  "closed",           :default => false, :null => false
     t.boolean  "closed_at"
-    t.text     "description"
+    t.text     "description",                         :null => false
     t.text     "note"
     t.integer  "proposed_user_id"
-    t.string   "reported_by"
+    t.string   "reported_by",                         :null => false
     t.integer  "task_id"
     t.integer  "position"
     t.string   "state"
@@ -29,12 +29,18 @@ ActiveRecord::Schema.define(:version => 20100505030326) do
     t.datetime "updated_at"
   end
 
+  add_index "bugs", ["name"], :name => "index_bugs_on_name"
+  add_index "bugs", ["position"], :name => "index_bugs_on_position"
+  add_index "bugs", ["task_id"], :name => "index_bugs_on_task_id"
+
   create_table "grants", :force => true do |t|
     t.string   "name",                                                      :null => false
     t.decimal  "budget",     :precision => 8, :scale => 2, :default => 0.0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "grants", ["name"], :name => "index_grants_on_name", :unique => true
 
   create_table "projects", :force => true do |t|
     t.string   "name",       :null => false
@@ -73,6 +79,8 @@ ActiveRecord::Schema.define(:version => 20100505030326) do
     t.datetime "updated_at"
   end
 
+  add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
+
   create_table "tasklists", :force => true do |t|
     t.string   "name",                               :null => false
     t.integer  "user_id",                            :null => false
@@ -88,11 +96,13 @@ ActiveRecord::Schema.define(:version => 20100505030326) do
 
   add_index "tasklists", ["grant_id"], :name => "index_tasklists_on_grant_id"
   add_index "tasklists", ["kind"], :name => "index_tasklists_on_kind"
+  add_index "tasklists", ["name"], :name => "index_tasklists_on_name"
+  add_index "tasklists", ["state"], :name => "index_tasklists_on_state"
   add_index "tasklists", ["user_id"], :name => "index_tasklists_on_user_id"
 
   create_table "tasks", :force => true do |t|
     t.integer  "project_id"
-    t.string   "name"
+    t.string   "name",                                 :null => false
     t.boolean  "completed",         :default => false, :null => false
     t.boolean  "checked",           :default => false, :null => false
     t.datetime "created_at"
@@ -108,11 +118,15 @@ ActiveRecord::Schema.define(:version => 20100505030326) do
     t.text     "note"
     t.integer  "tasklist_id"
     t.integer  "worktype_id"
+    t.integer  "priority",          :default => 1,     :null => false
   end
 
+  add_index "tasks", ["name"], :name => "index_tasks_on_name"
   add_index "tasks", ["position"], :name => "index_tasks_on_position"
   add_index "tasks", ["project_id"], :name => "index_tasks_on_project_id"
+  add_index "tasks", ["state"], :name => "index_tasks_on_state"
   add_index "tasks", ["tasklist_id"], :name => "index_tasks_on_tasklist_id"
+  add_index "tasks", ["worktype_id"], :name => "index_tasks_on_worktype_id"
 
   create_table "timesheets", :force => true do |t|
     t.integer  "task_id",     :null => false
@@ -123,6 +137,9 @@ ActiveRecord::Schema.define(:version => 20100505030326) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "timesheets", ["task_id"], :name => "index_timesheets_on_task_id"
+  add_index "timesheets", ["user_id"], :name => "index_timesheets_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "login",                                  :null => false
@@ -155,5 +172,7 @@ ActiveRecord::Schema.define(:version => 20100505030326) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "worktypes", ["name"], :name => "index_worktypes_on_name", :unique => true
 
 end

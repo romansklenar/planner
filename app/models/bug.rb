@@ -6,6 +6,8 @@ class Bug < ActiveRecord::Base
   belongs_to :proposed_user, :class_name => "User"
   belongs_to :task
 
+  validates_presence_of :name, :description, :reported_by
+
   acts_as_state_machine :initial => :active
 
 

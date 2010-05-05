@@ -1,16 +1,16 @@
 class CreateBugs < ActiveRecord::Migration
   def self.up
     create_table :bugs do |t|
-      t.string :name
+      t.string :name, :null => false
       t.integer :actual_user_id
-      t.boolean :approved
+      t.boolean :approved, :default => false, :null => false
       t.datetime :approved_at
-      t.boolean :closed
+      t.boolean :closed,   :default => false, :null => false
       t.boolean :closed_at
-      t.text :description
+      t.text :description, :null => false
       t.text :note
       t.integer :proposed_user_id
-      t.string :reported_by
+      t.string :reported_by, :null => false
       t.integer :task_id
       t.integer :position
       t.string :state
