@@ -2,7 +2,7 @@ class CreateWorktypes < ActiveRecord::Migration
   def self.up
     create_table :worktypes do |t|
       t.string :name
-      t.float :price_per_hour
+      t.decimal :price_per_hour, :precision => 8, :scale => 2, :default => 0
       t.timestamps
     end
   end

@@ -2,7 +2,7 @@ class CreateGrants < ActiveRecord::Migration
   def self.up
     create_table :grants do |t|
       t.string :name
-      t.float :budget
+      t.decimal :budget, :precision => 8, :scale => 2, :default => 0
       t.timestamps
     end
   end
