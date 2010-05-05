@@ -1,0 +1,16 @@
+<% title "Grant" %>
+
+<p>
+  <strong>Name:</strong>
+  <%=h @grant.name %>
+</p>
+<p>
+  <strong>Budget:</strong>
+  <%=h @grant.budget %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_grant_path(@grant) %> |
+  <%= link_to "Destroy", @grant, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", grants_path %>
+</p>

@@ -1,0 +1,19 @@
+<% title "Grants" %>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Budget</th>
+  </tr>
+  <% for grant in @grants %>
+    <tr>
+      <td><%=h grant.name %></td>
+      <td><%=h grant.budget %></td>
+      <td><%= link_to "Show", grant %></td>
+      <td><%= link_to "Edit", edit_grant_path(grant) %></td>
+      <td><%= link_to "Destroy", grant, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Grant", new_grant_path %></p>
