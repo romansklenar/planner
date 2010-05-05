@@ -1,6 +1,8 @@
 class Worktype < ActiveRecord::Base
   attr_accessible :name, :price_per_hour
 
+  validates_presence_of :name, :price_per_hour
+  validates_uniqueness_of :name
   validate :price_must_be_at_least_a_cent
 
   # Bugfix work type finder

@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(:version => 20100505030326) do
   end
 
   create_table "grants", :force => true do |t|
-    t.string   "name"
-    t.decimal  "budget",     :precision => 8, :scale => 2, :default => 0.0
+    t.string   "name",                                                      :null => false
+    t.decimal  "budget",     :precision => 8, :scale => 2, :default => 0.0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -150,8 +150,8 @@ ActiveRecord::Schema.define(:version => 20100505030326) do
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token"
 
   create_table "worktypes", :force => true do |t|
-    t.string   "name"
-    t.decimal  "price_per_hour", :precision => 8, :scale => 2, :default => 0.0
+    t.string   "name",                                                          :null => false
+    t.decimal  "price_per_hour", :precision => 8, :scale => 2, :default => 0.0, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

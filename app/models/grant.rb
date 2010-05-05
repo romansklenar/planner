@@ -1,6 +1,8 @@
 class Grant < ActiveRecord::Base
   attr_accessible :name, :budget
 
+  validates_presence_of :name, :budget
+  validates_uniqueness_of :name
   validate :budget_must_be_at_least_a_cent
 
   # Returns work types for Rails form select helper
