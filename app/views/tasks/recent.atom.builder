@@ -1,4 +1,4 @@
-atom_feed(:url => formatted_recent_tasks_url(:atom)) do |feed|
+atom_feed(:url => recent_tasks_url(:fotmat => :atom)) do |feed|
   feed.title("Tasks")
   feed.link(root_url)
   feed.subtitle('15 recently completed tasks')
