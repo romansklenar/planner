@@ -15,9 +15,20 @@ class Task < ActiveRecord::Base
   named_scope :completed, :conditions => { :completed => true }
   named_scope :recently_completed, :conditions => { :completed => true }, :order => 'completed_at DESC', :limit => 15
 
+
+  PRIORITIES = [
+    #  Displayed       stored in db
+    [ "wanna",   1 ],
+    [ "should",  2 ],
+    [ "have to", 3 ],
+    [ "must",    4 ]
+  ]
+
+
   validates_presence_of :name
   validates_presence_of :project,  :if => Proc.new { |tasklist| tasklist.tasklist.blank? }, :message => "Task {{value}} must be part of some tasklist or project"
   validates_presence_of :tasklist, :if => Proc.new { |tasklist| tasklist.project.blank? }, :message => "Task {{value}} must be part of some tasklist or project"
+  validates_inclusion_of :priority, :in => [1,2,3,4], :message => "{{value}} is not a valid priority type"
 
 
   acts_as_list :scope => :project
