@@ -3,6 +3,7 @@ class Tasklist < ActiveRecord::Base
 
   belongs_to :user
   has_many   :tasks, :order => "position"
+  belongs_to :grant
 
   validates_inclusion_of :kind, :in => %w(I N S P), :message => "{{value}} is not a valid tasklist type"
 
