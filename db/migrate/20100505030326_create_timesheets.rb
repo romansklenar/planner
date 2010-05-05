@@ -1,10 +1,10 @@
 class CreateTimesheets < ActiveRecord::Migration
   def self.up
     create_table :timesheets do |t|
-      t.integer :task_id
-      t.integer :user_id
-      t.datetime :started_at
-      t.datetime :finished_at
+      t.integer :task_id, :null => false
+      t.integer :user_id, :null => false
+      t.datetime :started_at, :null => false
+      t.datetime :finished_at, :null => false
       t.text :note
       t.timestamps
     end

@@ -7,6 +7,7 @@ class Task < ActiveRecord::Base
   has_one    :user, :through => :tasklist
   belongs_to :delegated_user, :class_name => "User"
   belongs_to :worktype
+  has_many  :timesheets
 
 
 

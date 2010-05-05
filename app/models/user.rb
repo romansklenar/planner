@@ -25,9 +25,10 @@ class User < ActiveRecord::Base
            :class_name => 'Tasklist',
            :conditions => [ 'kind = ?', 'S' ]
 
-  has_many :tasks,
+  has_many  :tasks,
             :through => :tasklists,
             :conditions => [ 'kind IN (?)', ['I','N','S', 'P'] ]
+  has_many  :timesheets
 
 
   acts_as_authentic
