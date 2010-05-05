@@ -10,7 +10,6 @@ class Task < ActiveRecord::Base
   has_many  :timesheets
 
 
-
   default_scope :order => 'position ASC'
   named_scope :incomplete, :conditions => { :completed => false }
   named_scope :completed, :conditions => { :completed => true }

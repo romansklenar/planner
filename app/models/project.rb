@@ -5,7 +5,6 @@ class Project < Tasklist
   has_many   :tasks, :order => "position"
 
   acts_as_taggable
-
   acts_as_state_machine :initial => :active
 
   state :active
