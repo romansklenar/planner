@@ -54,3 +54,15 @@ bugs = ['Bug #1', 'Bug #2', 'Bug #3']
 bugs.each do |name|
   Bug.create(:name => name, :reported_by => "John Doe", :proposed_user => users.rand)
 end
+
+
+
+desc "Load work types into database"
+
+Worktype.delete_all
+tasks = Task.all
+works = {'bugfix' => 200.00, 'implementation' => 150.00, 'documentation' => 100.00}
+works.each do |name, price|
+  work = Worktype.create(:name => name, :price_per_hour => price)
+  tasks.rand.worktype = work
+end

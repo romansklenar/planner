@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100504123744) do
+ActiveRecord::Schema.define(:version => 20100505020241) do
 
   create_table "bugs", :force => true do |t|
     t.string   "name"
@@ -131,5 +131,12 @@ ActiveRecord::Schema.define(:version => 20100504123744) do
   add_index "users", ["last_request_at"], :name => "index_users_on_last_request_at"
   add_index "users", ["login"], :name => "index_users_on_login"
   add_index "users", ["persistence_token"], :name => "index_users_on_persistence_token"
+
+  create_table "worktypes", :force => true do |t|
+    t.string   "name"
+    t.float    "price_per_hour"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

@@ -6,6 +6,8 @@ class Task < ActiveRecord::Base
   belongs_to :tasklist
   has_one    :user, :through => :tasklist
   belongs_to :delegated_user, :class_name => "User"
+  belongs_to :worktype
+
 
 
   default_scope :order => 'position ASC'
@@ -83,7 +85,7 @@ class Task < ActiveRecord::Base
         :name => bug.name,
         :description => bug.description,
         :note => bug.note,
-        # :worktype => Worktype.bug,
+        :worktype => Worktype.bugfix,
         :delegated_user => bug.actual_user,
         :tasklist => bug.actual_user.inbox_list
     )
