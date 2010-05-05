@@ -10,11 +10,11 @@
   </p>
   <p>
     <%= f.label :due_to %><br />
-    <%= f.date_select :due_to %>
+    <%= f.date_select :due_to, :prompt => true %>
   </p>
   <p>
     <%= f.label :scheduled_to %><br />
-    <%= f.date_select :scheduled_to %>
+    <%= f.date_select :scheduled_to, :prompt => true %>
   </p>
   <p><%= f.submit "Submit" %></p>
 <% end %>
