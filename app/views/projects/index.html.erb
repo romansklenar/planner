@@ -1,6 +1,6 @@
 <% title "Projects" %>
 
-<% form_tag projects_path, :method => :get, :class => "fright" do %>
+<% form_tag projects_path, :id => "search_form", :method => :get, :class => "aright" do %>
   <p>
     <%= text_field_tag :search, params[:search], :size => 50 %>
     <%= submit_tag "Search", :name => nil %>
@@ -13,7 +13,7 @@
   <%= render :partial => "project", :collection => @projects %>
 <%- end -%>
 
-<p><%= link_to "New Project", new_project_path %></p>
+<p><%= link_to "New Project", new_project_path, :class => "add" %></p>
 
 
 <%- unless @archived_projects.empty? -%>

@@ -1,5 +1,5 @@
 body {
-  background-color: #DDD;
+  background-color: #EEEEEE;
   font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Verdana, sans-serif;
   color: #333333;
   font-size: 14px;
@@ -28,13 +28,43 @@ a, a:visited {
 }
 
 #container {
-  width: 65%;
-  margin: 0 auto;
+  width: 830px;
+  margin: 20px auto;
+}
+
+#sidebar {
+  position:absolute;
+  margin: 50px auto 70px;
+  width: 172px;
   background-color: #FFF;
-  padding: 20px 40px;
+  padding: 0;
+  border: solid 1px #BBB;
+  border-right: none 0px transparent !important;
+
+  box-shadow: rgba(0,0,0,0.3) 0 1px 3px;
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: rgba(0,0,0,0.3) 0 1px 3px;
+}
+
+.top-left-radius {
+  border-top-left-radius: 1em;
+  -webkit-border-top-left-radius: 1em;
+  -moz-border-radius-topleft: 1em;
+}
+.bottom-left-radius {
+  border-bottom-left-radius: 1em;
+  -moz-border-radius-bottomleft: 1em;
+  -webkit-border-bottom-left-radius: 1em;
+}
+
+#content {
+  width: 595px;
+  min-height: 550px;
+  margin: 0 auto 50px;
+  background-color: #FFF;
+  padding: 20px 30px;
   border: solid 1px #BBB;
   margin-top: 20px;
-  
   box-shadow: rgba(0,0,0,0.3) 0 1px 3px;
   /*-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);*/
   -webkit-box-shadow: rgba(0,0,0,0.3) 0 1px 3px;
@@ -100,17 +130,26 @@ a, a:visited {
   float: right;
   font-size: 12px;
 }
-.fleft {
+.aleft {
   text-align: left;
 }
-.fcenter {
+.acenter {
   text-align: center;
 }
-.fright {
+.aright {
   text-align: right;
 }
+.fleft {
+  float: left !important;
+}
+.fnone {
+  float: none !important;
+}
+.fright {
+  float: right !important;
+}
 div.project {
-  padding: 0.2em 1.5em;
+  padding: 0.2em 0em;
 }
 ul.tasklist {
   padding: 0em;
@@ -141,6 +180,34 @@ li .handle {
   padding: 0 3px;
 }
 
+#sidebar ul {
+  padding: 0;
+  margin: 0;
+}
+
+#sidebar ul li {
+  border-bottom: 1px solid #BBBBBB;
+  background: none repeat scroll 0 0 #FFFFFF;
+  list-style-type: none;
+  /*margin: 0 0 0.2em;
+  padding: 0.5em 0.5em 0.5em 0.8em;*/
+  margin: 0;
+  padding: 0.9em 1em;
+}
+#sidebar a {
+  text-decoration: none;
+  color: #333333;
+  font-size: 110%;
+  font-weight: bold;
+}
+#sidebar ul #projects {
+  margin-left: 15px;
+}
+#sidebar ul #projects li {
+  border-bottom: 1px solid #FFFFFF;
+}
+
+
 hr {
   background: #ddd;
   height: .1em;
@@ -149,7 +216,7 @@ hr {
 }
 
 .actions {
-  font-size: 80%;
+  font-size: 11px;
 }
 
 .tags, .notes {
@@ -176,8 +243,11 @@ a.tags {
   background: #F4E1E1;
 }
 
-.hover {
-  background-color: #eee;
+.hover, .active {
+  background: #eee url('/images/arrow.png') no-repeat 100% 50% !important;
+}
+.no-border {
+  border: 0 none !important;
 }
 
 #indicator {
@@ -201,3 +271,30 @@ a.tags {
 .css2 { font-size: 1.2em; }
 .css3 { font-size: 1.4em; }
 .css4 { font-size: 1.6em; }
+
+
+
+
+#inbox, #next, #today, #tomorrow, #scheduled, #someday, #project, #delegated, #completed, #trash,
+.add, .remove {
+  padding-bottom: 10px;
+  padding-left: 45px;
+  padding-top: 8px;
+  background: url(".") no-repeat scroll left top transparent;
+}
+#inbox { background-image: url("/images/icons/package-x-generic.png"); }
+#next { background-image: url("/images/icons/start-here.png"); }
+#today { background-image: url("/images/icons/edit-redo.png"); }
+#tomorrow { background-image: url("/images/icons/edit-undo.png"); }
+#scheduled { background-image: url("/images/icons/office-calendar.png"); }
+#someday { background-image: url("/images/icons/archive.png"); }
+#project { background-image: url("/images/icons/bookmarked.png"); }
+#delegated { background-image: url("/images/icons/delegated.png"); }
+#completed { background-image: url("/images/icons/completed.png"); }
+#trash { background-image: url("/images/icons/user-trash.png"); }
+
+.add, .remove {
+  padding-left: 32px;
+}
+.add { background-image: url("/images/icons/list-add.png"); }
+.remove { background-image: url("/images/icons/list-remove.png"); }

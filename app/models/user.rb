@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
            :class_name => 'Tasklist',
            :conditions => [ 'kind = ?', 'I' ]
 
-  has_one  :next_actions_list,
+  has_one  :next_list,
            :class_name => 'Tasklist',
            :conditions => [ 'kind = ?', 'N' ]
 

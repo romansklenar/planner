@@ -1,0 +1,26 @@
+<div id="sidebar" class="fleft top-left-radius bottom-left-radius">
+<ul>
+  <li id="inbox_list" class="top-left-radius"><a id="inbox" href="#">Inbox</a></li>
+  <li id="next_list"><a id="next" href="#">Next steps</a></li>
+  <li id="today_list"><a id="today" href="#">Today</a></li>
+  <li id="tomorrow_list"><a id="tomorrow" href="#">Tomorrow</a></li>
+  <li id="scheduled_list"><a id="scheduled" href="#">Scheduled</a></li>
+  <li id="someday_list"><a id="someday" href="#">Someday</a></li>
+  <li class="<%= css_class_for_sidebar_li(projects_path)%>"><%= link_to 'Projects', projects_path, :id => 'project' %></li>
+  <li id="delegated_list"><a id="delegated" href="#">Delegated</a></li>
+  <li id="completed_list"><a id="completed" href="#">Completed</a></li>
+  <li id="trash_list" class="no-border bottom-left-radius"><a id="trash" href="#">Trash</a></li>
+</ul>
+</div>
+
+
+<%= drop_receiving_element("inbox_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
+<%= drop_receiving_element("next_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
+<%= drop_receiving_element("today_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
+<%= drop_receiving_element("tomorrow_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
+<%= drop_receiving_element("scheduled_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
+<%= drop_receiving_element("someday_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
+<%= drop_receiving_element("delegated_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
+<%= drop_receiving_element("completed_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
+<%= drop_receiving_element("trash_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
+
