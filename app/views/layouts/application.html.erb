@@ -8,7 +8,7 @@
     <%= javascript_include_tag :defaults %>
     <%= yield(:head) %>
   </head>
-  <body onload="new Scroll('sidebar',1000)">
+  <body onload="new Scroll('sidebar',1000); new Scroll('tagbar',1000)">
 
   <div id="container">
 
@@ -29,6 +29,10 @@
       
       <%= yield %>
     </div>
+
+    <% if current_user %>
+      <%= render :partial => "layouts/tagbar" %>
+    <% end %>
 
     <div id="indicator" style="display: none"></div>
   </div>

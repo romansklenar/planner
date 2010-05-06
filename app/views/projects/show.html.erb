@@ -1,3 +1,5 @@
-<br />
+<% title "Project" %>
 
 <%= render :partial => "project", :object => @project %>
+
+<%= sortable_element("tasks", :url => sort_project_tasks_path(@project), :complete => visual_effect(:highlight, "tasks"), :handle => "handle-vertical") %>

@@ -83,6 +83,15 @@ class Task < ActiveRecord::Base
   end
 
 
+  def today?
+    scheduled_to.nil? ? false : (Date.today <=> scheduled_to) >= 0
+  end
+
+  def tomorrow?
+    scheduled_to.nil? ? false : (Date.today+1 <=> scheduled_to) == 0
+  end
+
+
 
   def after_save
     deliver_task_assigned_information! if self.changed.include?('delegated_user_id')

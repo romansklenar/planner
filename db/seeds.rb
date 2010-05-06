@@ -37,10 +37,14 @@ users = User.all
 projects = Project.all
 words = File.readlines("./lib/tasks/words").sort_by { rand }
 35.times do
-  project = projects.rand
-  tasklist = project.user.tasklists.rand
-  task = Task.create(:name => words.pop.titleize.strip, :project => project, :tasklist => tasklist)
-  task.complete! if rand*10 > 8
+  task = Task.create
+  task.name = words.pop.titleize.strip
+  task.project = projects.rand
+  task.tasklist = task.project.user.tasklists.rand
+  task.due_to = (rand*10).to_i.days.ago.to_date if rand*10 > 6
+  task.scheduled_to = (rand*10).to_i.days.ago.to_date if rand*10 > 6
+  #toggle_completed! if rand*10 > 8
+  task.save
   task.user.tag(task, :with => tags.rand, :on => :tags) if rand*10 > 6
 end
 

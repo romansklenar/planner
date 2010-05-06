@@ -1,0 +1,11 @@
+<div id="tagbar" class="fleft top-right-radius bottom-right-radius">
+<ul id="tags">
+  <li class="active top-right-radius"><%= link_to 'all', projects_path, :class => 'tgs' %></li>
+  <% @owned_tags = current_user.owned_tags %>
+  
+  <% for tag in current_user.owned_tags %>
+    <li><%= link_to tag.name, tag, :class => 'tgs' %></li>
+  <% end %>
+  <li class="bottom-right-radius no-border">read</li>
+</ul>
+</div>

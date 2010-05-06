@@ -20,7 +20,19 @@
   </h2>
 
   <%- unless project.archived? -%>
-  <%= drop_receiving_element(dom_id(project), 
+  <p class="fright add-task"><%= link_to "Add new task", new_project_task_path(project), :class => "add" %></p>
+  <%- end -%>
+
+  <p class="description">
+  <% unless project.description.nil? or project.description.empty? %>
+    <%=h project.description %>
+  <% else %>
+    &nbsp;
+  <% end %>
+  </p>
+
+  <%- unless project.archived? -%>
+  <%= drop_receiving_element(dom_id(project),
     :accept => "task",
     :hoverclass => "hover",
     #:with => "'draggable_element=' + (element.id)",
@@ -35,13 +47,9 @@
   <%- end -%>
 
   <%- unless project.tasks.empty? -%>
-  <ul id="<%= dom_id(project) %>_tasklist" class="tasklist">
+  <ul id="tasks" class="tasklist">
     <%= render :partial => "tasks/task", :collection => project.tasks, :locals => { :project => project } %>
   </ul>
-  <%- end -%>
-
-  <%- unless project.archived? -%>
-  <p><%= link_to "Add new task", new_project_task_path(project), :class => "add" %></p>
   <%- end -%>
 
   <noscript><%= submit_tag "Complete checked tasks" %></noscript>

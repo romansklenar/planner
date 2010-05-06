@@ -2,7 +2,8 @@
 <%- tags ||= task.tags_from(task.project.user) -%>
 
 <% content_tag_for :li, task, :class => css_class_for_task(task) do %>
-  <span class="handle">&nbsp;</span>
+  <span class="handle-horizontal">&nbsp;</span>
+  <span class="handle-vertical">&nbsp;</span>
   <%= check_box_tag('completed[]', task.id, task.completed?, :id => nil, :disabled => task.project.archived?,
     :onclick => remote_function(:url => toggle_project_task_path(project, task))) %>
   &nbsp;
@@ -22,9 +23,14 @@
   <% end %>
 
 
+
+  <% if task.today? %>
+  <span class="mark today">today</span>
+  <% end %>
+
   <% unless task.completed? or task.due_to.nil? %>
-  <span class="notes">
-    <%= task.due_to > Time.now.to_date ? 'due in' : 'overdue'%> <%= time_ago_in_words task.due_to %>
+  <span class="mark <%= task.due_to > Time.zone.now.to_date ? 'due-in' : 'overdue' %>">
+    <%= task.due_to > Time.zone.now.to_date ? 'due in' : 'overdue' %> <%= time_ago_in_words task.due_to %>
   </span>
   <% end %>
 
