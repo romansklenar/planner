@@ -1,7 +1,9 @@
 <div id="user_nav">
   <% if current_user %>
-    <%= link_to "Bugs", bugs_path %> |
     <%= link_to "Projects", projects_path %> |
+    <%= link_to 'Delegated tasks', delegated_path %> |
+    <%= link_to "Bugs", bugs_path %> |
+    <%= link_to "Users", users_path %> |
     <%= link_to "My Account", account_path %> |
     <%= link_to "Logout", logout_path, :confirm => "Are you sure you want to logout?" %>
   <% else %>

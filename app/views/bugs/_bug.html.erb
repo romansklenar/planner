@@ -1,0 +1,23 @@
+<% content_tag_for :li, bug, :class => css_class_for_bug(bug) do %>
+  <span class="handle-vertical">&nbsp;</span>
+
+  <% if bug.closed? %>
+    <del><%=h bug.name %></del>
+  <% else %>
+    <strong><%=h bug.name %></strong>
+  <% end %>
+
+  <% if !bug.closed? %>
+  <span class="actions">
+    &nbsp; &nbsp;
+	<% if bug.assigned? %><span class="delegated" title="assigned bug">&nbsp;</span><% end %>
+    <!-- <%= link_to "Detail", bug_path(bug) %> | -->
+    <%= link_to "Edit", edit_bug_path(bug) %> |
+    <%= link_to "Approve", approve_bug_path(bug) %> |
+    <%= link_to "Assign", assign_bug_path(bug) %> |
+    <%= link_to "Delete", bug_path(bug), :confirm => "Are you sure to delete bug #{h(bug.name)}?", :method => 'delete' %>
+  </span>
+  <% end %>
+
+  <%= draggable_element(dom_id(bug), {:revert => true, :handle => "'handle-vertical'"}) %>
+<% end %>

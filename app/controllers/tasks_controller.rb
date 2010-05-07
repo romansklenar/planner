@@ -1,23 +1,17 @@
 class TasksController < ApplicationController
   before_filter :require_user
   before_filter :load_collection, :only => ['index', 'new', 'create']
-  before_filter :load_object,     :only => ['edit', 'update', 'destroy', 'toggle']
+  before_filter :load_object,     :only => ['edit', 'update', 'destroy', 'toggle', 'complete', 'trash', 'today', 'tomorrow']
 
 
 private
 
   def load_collection
-    unless params[:project_id].blank?
-      @project = current_user.projects.find(params[:project_id].to_i)
-      @tasks = @project.tasks
-    else
-      @tasks = current_user.tasks.incomplete
-    end
+    @tasks = current_user.tasks
   end
 
   def load_object
-    @project = current_user.projects.find(params[:project_id].to_i)
-    @task = @project.tasks.find(params[:id].to_i)
+    @task = current_user.tasks.find(params[:id].to_i) if params.has_key?(:id)
   end
 
 public
@@ -47,7 +41,7 @@ public
   def update
     if @task.update_attributes(params[:task])
       flash[:notice] = "Successfully updated task."
-      redirect_to @task.project
+      redirect_back_or_default @task
     else
       render :action => 'edit'
     end
@@ -76,7 +70,7 @@ public
       format.html { redirect_to projects_path }
       format.js do
         render :update do |page|
-          page.replace dom_id(@task), :partial => 'task', :object => @task, :locals => { :project => @project }
+          page.replace dom_id(@task), :partial => 'task', :object => @task #, :locals => { :project => @project }
           page.visual_effect :highlight, dom_id(@task), :duration => 1.5, :delay => 0.2
         end
       end
@@ -88,6 +82,71 @@ public
     @tasks = Task.recently_completed
     respond_to do |format|
       format.atom # recent.atom.builder
+    end
+  end
+
+
+  def trash
+    task = model_from_dom_id(params[:draggable_element])
+    task.trash!
+    task.save
+
+    respond_to do |format|
+      format.html { redirect_to projects_path }
+      format.js do
+        render :update do |page|
+          page.replace dom_id(task), :partial => 'tasks/task', :object => task
+          page.visual_effect :highlight, dom_id(task), :duration => 1.5, :delay => 0.2
+        end
+      end
+    end
+  end
+
+  def today
+    task = model_from_dom_id(params[:draggable_element])
+    task.scheduled_to = Date.today
+    task.save
+
+    respond_to do |format|
+      format.html { redirect_to projects_path }
+      format.js do
+        render :update do |page|
+          page.replace dom_id(task), :partial => 'tasks/task', :object => task
+          page.visual_effect :highlight, dom_id(task), :duration => 1.5, :delay => 0.2
+        end
+      end
+    end
+  end
+
+  def tomorrow
+    task = model_from_dom_id(params[:draggable_element])
+    task.scheduled_to = Date.today + 1
+    task.save
+
+    respond_to do |format|
+      format.html { redirect_to projects_path }
+      format.js do
+        render :update do |page|
+          page.replace dom_id(task), :partial => 'tasks/task', :object => task
+          page.visual_effect :highlight, dom_id(task), :duration => 1.5, :delay => 0.2
+        end
+      end
+    end
+  end
+
+  def complete
+    task = model_from_dom_id(params[:draggable_element])
+    task.complete!
+    task.save
+
+    respond_to do |format|
+      format.html { redirect_to projects_path }
+      format.js do
+        render :update do |page|
+          page.replace dom_id(task), :partial => 'tasks/task', :object => task
+          page.visual_effect :highlight, dom_id(task), :duration => 1.5, :delay => 0.2
+        end
+      end
     end
   end
 end

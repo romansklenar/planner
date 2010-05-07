@@ -1,11 +1,11 @@
 <div id="tagbar" class="fleft top-right-radius bottom-right-radius">
 <ul id="tags">
-  <li class="active top-right-radius"><%= link_to 'all', projects_path, :class => 'tgs' %></li>
+  <li class="<%= css_class_for_sidebar_li({:tag => nil})%> top-right-radius"><%= link_to 'all', {:tag => nil}, :class => 'tgs' %></li>
   <% @owned_tags = current_user.owned_tags %>
   
   <% for tag in current_user.owned_tags %>
-    <li><%= link_to tag.name, tag, :class => 'tgs' %></li>
+    <li class="<%= css_class_for_sidebar_li({:tag => tag.name})%>"><%= link_to tag.name, {:tag => tag.name}, :class => 'tgs' %></li>
   <% end %>
-  <li class="bottom-right-radius no-border">read</li>
+  <li class="<%= css_class_for_sidebar_li({:tag => 'none'})%> bottom-right-radius no-border"><%= link_to 'none', {:tag => 'none'}, :class => 'tgs' %></li>
 </ul>
 </div>

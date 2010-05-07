@@ -4,9 +4,16 @@
     <%= f.label :name %><br />
     <%= f.text_field :name %>
   </p>
+
+  <hr />
+
+  <p><%= link_to 'Details', '#', :onclick => visual_effect(:toggle_slide, 'switch') %></p>
+
+  <div id="switch">
+  <%  visual_effect(:toggle_slide, 'switch') %>
   <p>
-    <%= f.check_box :completed %>
-    <%= f.label :completed %>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
   </p>
   <p>
     <%= f.label :due_to %><br />
@@ -16,5 +23,22 @@
     <%= f.label :scheduled_to %><br />
     <%= f.date_select :scheduled_to, :prompt => true %>
   </p>
+  <p>
+    <%= f.label :tasklist_id %><br />
+    <%= f.select :tasklist_id, current_user.tasklists.find_for_select, :prompt => true %>
+  </p>
+  <p>
+    <%= f.label :project_id %><br />
+    <%= f.select :project_id, current_user.projects.find_for_select, :prompt => true %>
+  </p>
+  <p>
+    <%= f.label :priority %><br />
+    <%= f.select :priority, Task::PRIORITIES, :prompt => true %>
+  </p>
+  <p>
+    <%= f.label :worktype_id %><br />
+    <%= f.select :worktype_id, Worktype.find_for_select, :prompt => true %>
+  </p>
+  </div>
   <p><%= f.submit "Submit" %></p>
 <% end %>

@@ -7,4 +7,9 @@ module ApplicationHelper
   def css_class_for_sidebar_li(options = {})
     current_page?(options) ? "active" : ''
   end
+
+  def other_users
+    users = User.find(:all, :conditions => ['id != ?', current_user.id])
+    users
+  end
 end

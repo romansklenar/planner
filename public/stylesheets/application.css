@@ -86,7 +86,7 @@ a, a:visited {
 
 #content {
   width: 570px;
-  min-height: 550px;
+  min-height: 700px;
   margin: 0 auto 50px;
   background-color: #FFF;
   padding: 20px 30px;
@@ -157,7 +157,7 @@ a, a:visited {
   float: right;
   font-size: 12px;
   margin-top: -50px;
-  width: 450px;
+  width: 600px;
   text-align: right;
 }
 .aleft {
@@ -187,10 +187,10 @@ div.project .description{
 div.project .add-task{
   margin-top: -5px;
 }
-ul.tasklist {
+ul.tasklist, ul.buglist {
   padding: 0em;
 }
-ul.tasklist li.task {
+ul.tasklist li.task, ul.buglist li.bug {
   list-style-type: none;
   margin: 0 0 0.2em;
   padding: 0.5em 0.5em 0.5em 0.8em;
@@ -202,10 +202,10 @@ ul.tasklist li.task {
   -khtml-border-radius: 10px;
   -webkit-border-radius: 10px;
 }
-ul.tasklist li.task.completed {
+ul.tasklist li.task.completed, ul.buglist li.bug.completed {
   color: #9A9A9A;
 }
-ul.tasklist li.task.completed {
+ul.tasklist li.task.completed, ul.buglist li.bug.completed {
   color: #9A9A9A;
 }
 li .handle-vertical, li .handle-horizontal {
@@ -250,9 +250,12 @@ li .handle-horizontal {
   font-weight: bold;
 }
 #tagbar a {
-	font-weight: normal;
+  font-weight: normal;
 }
-#sidebar ul #projects, #sidebar ul #tags {
+#sidebar ul #projects, #sidebar ul #users {
+  display: none;
+}
+#sidebar ul #projects, #sidebar ul #users, #sidebar ul #tags {
   margin-left: 0px;
   margin-bottom: 15px;
 }
@@ -386,5 +389,10 @@ input.text, textarea {
 }
 
 #search_form_submit {
-	display: none;
+  display: none;
+}
+
+.delegated {
+  background: transparent url('/images/delegated.png') no-repeat 50% 0;
+  padding: 0 10px 0 5px;
 }

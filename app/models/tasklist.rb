@@ -6,6 +6,12 @@ class Tasklist < ActiveRecord::Base
   belongs_to :grant
 
 
+  # Returns work types for Rails form select helper
+  def self.find_for_select
+    self.all.collect { |w| [ w.name, w.id ] }
+  end
+
+
   validates_presence_of :name, :kind, :user
   validates_inclusion_of :kind, :in => %w(I N S P), :message => "{{value}} is not a valid tasklist type"
 

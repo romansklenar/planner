@@ -96,11 +96,12 @@ public
     flash[:notice] = "Task #{task.name} successfully moved to project #{@project.name}" unless request.xhr?
 
     respond_to do |format|
-      format.html { redirect_to projects_path }
+      format.html { redirect_to @project }
       format.js do
         render :update do |page|
-          page.replace dom_id(task), :partial => 'tasks/task', :object => task, :locals => { :project => @project }
+          page.replace dom_id(task), :partial => 'tasks/task', :object => task
           page.visual_effect :highlight, dom_id(task), :duration => 1.5, :delay => 0.2
+          page.visual_effect :fade, dom_id(task), :duration => 1.5, :delay => 0.2
         end
       end
     end

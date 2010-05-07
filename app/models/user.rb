@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   has_many  :tasks,
             :through => :tasklists,
             :conditions => [ 'kind IN (?)', ['I','N','S', 'P'] ]
+
   has_many  :timesheets
 
 
@@ -39,6 +40,12 @@ class User < ActiveRecord::Base
 
   acts_as_authentic
   acts_as_tagger
+
+
+  # Returns work types for Rails form select helper
+  def self.find_for_select
+    self.all.collect { |w| [ w.login.capitalize, w.id ] }
+  end
 
 
   def active?
@@ -64,7 +71,7 @@ class User < ActiveRecord::Base
 
   def after_create
     create_inbox_list
-    create_next_actions_list
+    create_next_steps_list
     create_someday_list
   end
 
@@ -97,8 +104,8 @@ class User < ActiveRecord::Base
     Tasklist.create(:name => "Inbox", :kind => "I", :user => self)
   end
 
-  def create_next_actions_list
-    Tasklist.create(:name => "Next Actions", :kind => "N", :user => self)
+  def create_next_steps_list
+    Tasklist.create(:name => "Next Steps", :kind => "N", :user => self)
   end
 
   def create_someday_list

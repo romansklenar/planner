@@ -5,8 +5,24 @@
   <%=h @bug.name %>
 </p>
 <p>
+  <strong>Reported By:</strong>
+  <%=h @bug.reported_by %>
+</p>
+<p>
+  <strong>Description:</strong>
+  <%=h @bug.description %>
+</p>
+<p>
+  <strong>Note:</strong>
+  <%=h @bug.note %>
+</p>
+<p>
   <strong>Actual Worker:</strong>
-  <%=h @bug.actual_user_id %>
+  <%=h @bug.actual_user.login.capitalize %>
+</p>
+<p>
+  <strong>Proposed Worker:</strong>
+  <%=h @bug.proposed_user.login.capitalize %>
 </p>
 <p>
   <strong>Approved:</strong>
@@ -25,28 +41,8 @@
   <%=h @bug.closed_at %>
 </p>
 <p>
-  <strong>Description:</strong>
-  <%=h @bug.description %>
-</p>
-<p>
-  <strong>Note:</strong>
-  <%=h @bug.note %>
-</p>
-<p>
-  <strong>Proposed Worker:</strong>
-  <%=h @bug.proposed_user_id %>
-</p>
-<p>
-  <strong>Reported By:</strong>
-  <%=h @bug.reported_by %>
-</p>
-<p>
   <strong>Task:</strong>
   <%=h @bug.task_id %>
-</p>
-<p>
-  <strong>Position:</strong>
-  <%=h @bug.position %>
 </p>
 
 <p>

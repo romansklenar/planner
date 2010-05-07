@@ -5,9 +5,32 @@
     <%= f.text_field :name %>
   </p>
   <p>
-    <%= f.label :actual_user_id %><br />
-    <%= f.text_field :actual_user_id %>
+    <%= f.label :reported_by %><br />
+    <%= f.text_field :reported_by %>
   </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+
+  <p><%= link_to 'Details', '#', :onclick => visual_effect(:toggle_slide, 'switch') %></p>
+  <% visual_effect(:toggle_slide, 'switch')  %>
+  <div id="switch">
+  <hr />
+  <p>
+    <%= f.label :note %><br />
+    <%= f.text_area :note %>
+  </p>
+
+  <p>
+    <%= f.label :proposed_user_id %><br />
+    <%= f.select :proposed_user_id, User.find_for_select, :prompt => true %>
+  </p>
+  <p>
+    <%= f.label :actual_user %><br />
+    <%= f.select :actual_user_id, User.find_for_select, :prompt => true %>
+  </p>
+  <!--
   <p>
     <%= f.label :approved %><br />
     <%= f.check_box :approved %>
@@ -24,29 +47,8 @@
     <%= f.label :closed_at %><br />
     <%= f.check_box :closed_at %>
   </p>
-  <p>
-    <%= f.label :description %><br />
-    <%= f.text_area :description %>
-  </p>
-  <p>
-    <%= f.label :note %><br />
-    <%= f.text_area :note %>
-  </p>
-  <p>
-    <%= f.label :proposed_user_id %><br />
-    <%= f.text_field :proposed_user_id %>
-  </p>
-  <p>
-    <%= f.label :reported_by %><br />
-    <%= f.text_field :reported_by %>
-  </p>
-  <p>
-    <%= f.label :task_id %><br />
-    <%= f.text_field :task_id %>
-  </p>
-  <p>
-    <%= f.label :position %><br />
-    <%= f.text_field :position %>
-  </p>
+  -->
+  </div>
+
   <p><%= f.submit "Submit" %></p>
 <% end %>

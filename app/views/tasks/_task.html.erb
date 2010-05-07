@@ -1,13 +1,12 @@
-<%- project ||= task.project -%>
-<%- tags ||= task.tags_from(task.project.user) -%>
+<%- tags ||= task.tags_from(task.user) -%>
 
 <% content_tag_for :li, task, :class => css_class_for_task(task) do %>
   <span class="handle-horizontal">&nbsp;</span>
   <span class="handle-vertical">&nbsp;</span>
-  <%= check_box_tag('completed[]', task.id, task.completed?, :id => nil, :disabled => task.project.archived?,
-    :onclick => remote_function(:url => toggle_project_task_path(project, task))) %>
+  <%= check_box_tag('completed[]', task.id, task.completed?, :id => nil,
+    :onclick => remote_function(:url => toggle_task_path(task))) %>
   &nbsp;
-  <%# button_to (task.completed?) ? "Open again" : "Complete", toggle_project_task_path(project, task) %>
+  <%# button_to (task.completed?) ? "Open again" : "Complete", toggle_task_path(task) %>
   <% if task.completed? %>
     <del><%=h task.name %></del>
   <% else %>
@@ -17,8 +16,9 @@
   <% if !task.completed? %>
   <span class="actions">
     &nbsp; &nbsp;
-    <%= link_to "Edit", edit_project_task_path(project, task) %> |
-    <%= link_to "Delete", project_task_path(project, task), :confirm => "Are you sure to delete task #{h(task.name)}?", :method => 'delete' %>
+    <% if task.delegated? %><span class="delegated" title="delegated task">&nbsp;</span><% end %>
+    <%= link_to "Edit", edit_task_path(task) %>
+    <%#= link_to "Delete", task_path(task), :confirm => "Are you sure to delete task #{h(task.name)}?", :method => 'delete' %>
   </span>
   <% end %>
 
@@ -38,7 +38,5 @@
   <span class="tags"><%=h tags %></span>
   <% end %>
 
-  <%- unless task.project.archived? -%>
-  <%= draggable_element(dom_id(task), {:revert => true, :handle => "'handle'"}) %>
-  <%- end -%>
+  <%= draggable_element(dom_id(task), {:revert => true, :handle => "'handle-vertical'"}) %>
 <% end %>

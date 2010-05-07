@@ -1,24 +1,11 @@
-<% title "Tasklist" %>
+<% title "Tasks" %>
 
-<p>
-  <strong>Name:</strong>
-  <%=h @tasklist.name %>
-</p>
-<p>
-  <strong>Type:</strong>
-  <%=h @tasklist.type %>
-</p>
-<p>
-  <strong>Description:</strong>
-  <%=h @tasklist.description %>
-</p>
-<p>
-  <strong>User:</strong>
-  <%=h @tasklist.user_id %>
-</p>
 
-<p>
-  <%= link_to "Edit", edit_tasklist_path(@tasklist) %> |
-  <%= link_to "Destroy", @tasklist, :confirm => 'Are you sure?', :method => :delete %> |
-  <%= link_to "View All", tasklists_path %>
-</p>
+<%- unless @tasks.empty? -%>
+<ul id="tasks" class="tasklist">
+  <%= render :partial => "tasks/task", :collection => @tasks %>
+</ul>
+<%= sortable_element("tasks", :url => sort_tasks_path, :complete => visual_effect(:highlight, "tasks"), :handle => "handle-vertical") %>
+<%- end -%>
+
+<noscript><%= submit_tag "Complete checked tasks" %></noscript>

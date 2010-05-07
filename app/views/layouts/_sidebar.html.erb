@@ -1,34 +1,47 @@
 <div id="sidebar" class="fleft top-left-radius bottom-left-radius">
 <ul>
-  <li id="inbox_list" class="top-left-radius"><a id="inbox" href="#">Inbox</a></li>
-  <li id="next_list"><a id="next" href="#">Next steps</a></li>
-  <li id="today_list"><a id="today" href="#">Today</a></li>
-  <li id="tomorrow_list"><a id="tomorrow" href="#">Tomorrow</a></li>
-  <li id="scheduled_list"><a id="scheduled" href="#">Scheduled</a></li>
-  <li id="someday_list"><a id="someday" href="#">Someday</a></li>
-  <li class="<%= css_class_for_sidebar_li(projects_path)%>"><%= link_to 'Projects', projects_path, :id => 'project' %></li>
+  <li id="inbox_list" class="top-left-radius <%= css_class_for_sidebar_li(inbox_path)%>"><%= link_to 'Inbox', inbox_path, :id => 'inbox'%></li>
+  <li id="next_list" class="<%= css_class_for_sidebar_li(next_steps_path)%>"><%= link_to 'Next steps', next_steps_path, :id => 'next'%></li>
+  <li id="today_list" class="<%= css_class_for_sidebar_li(today_path)%>"><%= link_to 'Today', today_path, :id => 'today'%></li>
+  <li id="tomorrow_list" class="<%= css_class_for_sidebar_li(tomorrow_path)%>"><%= link_to 'Tomorrow', tomorrow_path, :id => 'tomorrow'%></li>
+  <li id="scheduled_list" class="<%= css_class_for_sidebar_li(scheduled_path)%>"><%= link_to 'Scheduled', scheduled_path, :id => 'scheduled'%></li>
+  <li id="someday_list" class="<%= css_class_for_sidebar_li(someday_path)%>"><%= link_to 'Someday', someday_path, :id => 'someday'%></li>
+  
+  <li class="<%= css_class_for_sidebar_li(projects_path)%>"><%= link_to 'Projects', '#', :id => 'project', :onclick => visual_effect(:toggle_blind, 'projects', :duration => 0.5) %></li>
   <ul id="projects">
     <% for project in current_user.projects %>
       <% content_tag_for :li, project, :class => css_class_for_sidebar_li(project_path(project)) do %>
         <%= link_to project.name, project %>
       <% end %>
+      <% unless css_class_for_sidebar_li(project_path(project)) == 'active' %>
+      <%= drop_receiving_element(dom_id(project), :accept => "task", :hoverclass => "hover", :with => "'draggable_element=' + (element.id)", :url => accept_project_path(project)) %>
+      <% end %>
     <% end %>
-    <%= drop_receiving_element(dom_id(project), :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
   </ul>
 
-  <li id="delegated_list"><a id="delegated" href="#">Delegated</a></li>
-  <li id="completed_list"><a id="completed" href="#">Completed</a></li>
-  <li id="trash_list" class="no-border bottom-left-radius"><a id="trash" href="#">Trash</a></li>
+  <li id="delegated_list" class="<%= css_class_for_sidebar_li(delegated_path)%>"><%= link_to 'Projects', '#', :id => 'project', :onclick => visual_effect(:toggle_blind, 'projects', :duration => 0.5), :id => 'delegated'%></li>
+
+  <ul id="users">
+    <% for user in other_users %>
+      <% content_tag_for :li, user, :class => css_class_for_sidebar_li({:list => 'delegated', :user => user.login}) do %>
+        <%= link_to user.login.capitalize, {:list => 'delegated', :user => user.login} %>
+      <% end %>
+      <%= drop_receiving_element(dom_id(user), :accept => "task", :hoverclass => "hover", :with => "'draggable_element=' + (element.id)", :url => delegate_user_path(user)) %>
+    <% end %>
+  </ul>
+
+  <li id="completed_list" class="<%= css_class_for_sidebar_li(completed_path)%>"><%= link_to 'Completed', completed_path, :id => 'completed'%></li>
+  <li id="trash_list" class="no-border bottom-left-radius <%= css_class_for_sidebar_li(trashed_path)%>"><%= link_to 'Trashed', trashed_path, :id => 'trash'%></li>
 </ul>
 
-<%= drop_receiving_element("inbox_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
-<%= drop_receiving_element("next_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
-<%= drop_receiving_element("today_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
-<%= drop_receiving_element("tomorrow_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
-<%= drop_receiving_element("scheduled_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
-<%= drop_receiving_element("someday_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
-<%= drop_receiving_element("delegated_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
-<%= drop_receiving_element("completed_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
-<%= drop_receiving_element("trash_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
+<%= drop_receiving_element("inbox_list", :accept => "task", :hoverclass => "hover", :with => "'draggable_element=' + (element.id)", :url => accept_tasklist_path(current_user.inbox_list)) %>
+<%= drop_receiving_element("next_list", :accept => "task", :hoverclass => "hover", :with => "'draggable_element=' + (element.id)", :url => accept_tasklist_path(current_user.next_list)) %>
+<%= drop_receiving_element("today_list", :accept => "task", :hoverclass => "hover", :with => "'draggable_element=' + (element.id)", :url => {:controller => :tasks, :action => :today}) %>
+<%= drop_receiving_element("tomorrow_list", :accept => "task", :hoverclass => "hover", :with => "'draggable_element=' + (element.id)", :url => {:controller => :tasks, :action => :tomorrow}) %>
+<%#= drop_receiving_element("scheduled_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
+<%= drop_receiving_element("someday_list", :accept => "task", :hoverclass => "hover", :with => "'draggable_element=' + (element.id)", :url => accept_tasklist_path(current_user.someday_list)) %>
+<%#= drop_receiving_element("delegated_list", :accept => "task", :hoverclass => "hover", :onDrop => "function(drag, drop){ alert('you dropped ' + drag.id + ' on ' + drop.id) }") %>
+<%= drop_receiving_element("completed_list", :accept => "task", :hoverclass => "hover", :with => "'draggable_element=' + (element.id)", :url => {:controller => :tasks, :action => :complete}) %>
+<%= drop_receiving_element("trash_list", :accept => "task", :hoverclass => "hover", :with => "'draggable_element=' + (element.id)", :url => {:controller => :tasks, :action => :trash}) %>
 
 </div>

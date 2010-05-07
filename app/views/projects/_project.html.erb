@@ -32,7 +32,7 @@
   </p>
 
   <%- unless project.archived? -%>
-  <%= drop_receiving_element(dom_id(project),
+  <%#= drop_receiving_element(dom_id(project),
     :accept => "task",
     :hoverclass => "hover",
     #:with => "'draggable_element=' + (element.id)",
@@ -50,6 +50,7 @@
   <ul id="tasks" class="tasklist">
     <%= render :partial => "tasks/task", :collection => project.tasks, :locals => { :project => project } %>
   </ul>
+  <%= sortable_element("tasks", :url => sort_project_tasks_path(@project), :complete => visual_effect(:highlight, "tasks"), :handle => "handle-vertical") %>
   <%- end -%>
 
   <noscript><%= submit_tag "Complete checked tasks" %></noscript>

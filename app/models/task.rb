@@ -7,21 +7,29 @@ class Task < ActiveRecord::Base
   has_one    :user, :through => :tasklist
   belongs_to :delegated_user, :class_name => "User"
   belongs_to :worktype
-  has_many  :timesheets
+  has_many   :timesheets
+  has_many   :tags, :through => :taggings
 
 
   default_scope :order => 'position ASC'
   named_scope :incomplete, :conditions => { :completed => false }
-  named_scope :completed, :conditions => { :completed => true }
+  named_scope :completed, :conditions => { :completed => true }, :order => 'completed_at DESC'
   named_scope :recently_completed, :conditions => { :completed => true }, :order => 'completed_at DESC', :limit => 15
+
+  named_scope :today, :conditions => ['scheduled_to <= ?', Date.today]
+  named_scope :not_today, :conditions => ['scheduled_to != ?', Date.today]
+  named_scope :tomorrow, :conditions => ['scheduled_to = ?', Date.today+1]
+  named_scope :scheduled, :conditions => ['scheduled_to NOT ?', nil]
+  named_scope :delegated, :conditions => ['delegated_user_id NOT ?', nil]
+  named_scope :trashed, :conditions => { :state => 'trashed' } #, :order => 'trashed_at DESC'
 
 
   PRIORITIES = [
-    #  Displayed       stored in db
-    [ "wanna",   1 ],
-    [ "should",  2 ],
-    [ "have to", 3 ],
-    [ "must",    4 ]
+    #  Displayed, stored in db
+    [ "wanna",    1 ],
+    [ "should",   2 ],
+    [ "have to",  3 ],
+    [ "must",     4 ]
   ]
 
 
@@ -31,7 +39,7 @@ class Task < ActiveRecord::Base
   validates_inclusion_of :priority, :in => [1,2,3,4], :message => "{{value}} is not a valid priority type"
 
 
-  acts_as_list :scope => :project
+  acts_as_list :scope => :tasklist
   acts_as_taggable
   acts_as_state_machine :initial => :active
 
@@ -39,6 +47,8 @@ class Task < ActiveRecord::Base
   state :active, :enter => Proc.new { |task|
     task.completed_at = task.checked_at = nil
     task.completed = task.checked = false
+    task.tasklist = task.user.tasklists.inbox_list
+    task.project = nil
   }
   state :completed, :enter => Proc.new { |task|
     task.completed_at = Time.zone.now
@@ -49,6 +59,7 @@ class Task < ActiveRecord::Base
     task.checked = true
     task.bug.close! unless task.bug.nil?
   }
+  state :trashed
 
 
   event :activate do
@@ -61,6 +72,10 @@ class Task < ActiveRecord::Base
 
   event :check do
     transitions :to => :checked, :from => [:completed]
+  end
+
+  event :trash do
+    transitions :to => :trashed, :from => [:active]
   end
 
 
@@ -92,9 +107,8 @@ class Task < ActiveRecord::Base
   end
 
 
-
   def after_save
-    deliver_task_assigned_information! if self.changed.include?('delegated_user_id')
+    # deliver_task_assigned_information! if self.changed.include?('delegated_user_id')
   end
 
 
@@ -135,8 +149,6 @@ class Task < ActiveRecord::Base
     "#{id}-#{name.parameterize}"
   end
 
-
-  private
 
   def deliver_task_assigned_information!
     Notifier.task_assigned_information(self, self.delegated_user)
